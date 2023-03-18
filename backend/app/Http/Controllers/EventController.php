@@ -31,21 +31,21 @@ class EventController extends Controller
 
     public function show($id)
     {
-        // Show the details of a specific product
+        // Show the details of a specific event
     }
 
     public function edit($id)
     {
-        // Show the form for editing a specific product
+        // Show the form for editing a specific event
     }
 
     public function update(Request $request, $id)
     {
-        // Update a specific product in the database
+        // Update a specific event in the database
     }
 
     public function destroy($id)
     {
-        // Delete a specific product from the database
+        // Delete a specific event from the database
     }
 }
