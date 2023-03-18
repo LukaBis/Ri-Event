@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\ProfileInformationController;
+use Laravel\Fortify\Http\Controllers\PasswordController;
+use Laravel\Fortify\Features;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +19,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::middleware('auth:sanctum')->group(function() {
+
+    Route::get('/user', function(Request $request) {
+        return $request->user();
+    }); 
+
+    if (Features::enabled(Features::updateProfileInformation())) {
+        Route::put('/user/profile-information', [ProfileInformationController::class, 'update']);
+    }
+
+    if (Features::enabled(Features::updatePasswords())) {
+        Route::put('/user/password', [PasswordController::class, 'update']);
+    }
+
 });
