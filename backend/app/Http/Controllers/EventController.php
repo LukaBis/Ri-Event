@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Resources\EventCollection;
 use App\Models\Event;
+use App\Http\Requests\StoreEventRequest;
 
 class EventController extends Controller
 {
@@ -15,9 +16,17 @@ class EventController extends Controller
         return new EventCollection($events);
     }
 
-    public function store(Request $request)
+    public function store(StoreEventRequest $request)
     {
-        // Create a new product in the database
+        $newEvent = new Event();
+        $newEvent->title = $request->title;
+        $newEvent->description = $request->description;
+        $newEvent->latitude = $request->latitude;
+        $newEvent->longitude = $request->longitude;
+        $newEvent->user_id = $request->user()->id;
+        $newEvent->save();
+
+        return response()->json(['message' => 'Stored successfuly'], 200); 
     }
 
     public function show($id)
