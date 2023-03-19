@@ -1,47 +1,59 @@
 import React, { useState } from 'react';
 import './Navbar.css';
 
-function LoginForm() {
+function LoginForm({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(`Submitting login form with username ${username} and password ${password}`);
+    onLogin();
   };
-  const a = document.getElementsByClassName("Login-div")
-  
 
   return (
     <div className='Login-div'>
-    <form className="login-form" onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
-      </label>
-      <button type="submit">Login</button>
-    </form>
+      <form className="login-form" onSubmit={handleSubmit}>
+        <label>
+          Username:
+          <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
+        </label>
+        <label>
+          Password:
+          <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+        </label>
+        <button type="submit">Login</button>
+      </form>
     </div>
-
-    
   );
 }
-function HomeClick(){
-   const a = document.getElementsByClassName("Login-div")
-   a[0].style.display = "none"
 
-   
+function HomeContent() {
+  return (
+    <div className='Home-content'>
+      <h1>Welcome to My Website</h1>
+      <p>This is the home page.</p>
+    </div>
+  );
 }
 
 function App() {
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showHomeContent, setShowHomeContent] = useState(true);
 
   const handleLoginClick = () => {
     setShowLoginForm(true);
+    setShowHomeContent(false);
+  };
+
+  const handleLogin = () => {
+    setShowLoginForm(false);
+    setShowHomeContent(false);
+  };
+
+  const handleHomeClick = () => {
+    setShowLoginForm(false);
+    setShowHomeContent(true);
   };
 
   return (
@@ -50,10 +62,10 @@ function App() {
         <nav className="navbar">
           <ul className="nav-list">
             <li className="nav-item">
-              <a href="#" onClick={HomeClick}>Home</a>
+              <a href="#" onClick={handleHomeClick}>Home</a>
             </li>
             <li className="nav-item">
-              <a href="#">Register</a>
+              <a href="#" onClick={handleRegisterClick}>Register</a>
             </li>
             <li className="nav-item">
               <a href="#" onClick={handleLoginClick}>Login</a>
@@ -61,7 +73,8 @@ function App() {
           </ul>
         </nav>
       </header>
-      {showLoginForm && <LoginForm />}
+      {showLoginForm && <LoginForm onLogin={handleLogin} />}
+      {showHomeContent && <HomeContent />}
     </div>
   );
 }
