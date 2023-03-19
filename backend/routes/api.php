@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\ProfileInformationController;
 use Laravel\Fortify\Http\Controllers\PasswordController;
 use Laravel\Fortify\Features;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,5 +35,7 @@ Route::middleware('auth:sanctum')->group(function() {
     if (Features::enabled(Features::updatePasswords())) {
         Route::put('/user/password', [PasswordController::class, 'update']);
     }
+
+    Route::resource('events', EventController::class);
 
 });
