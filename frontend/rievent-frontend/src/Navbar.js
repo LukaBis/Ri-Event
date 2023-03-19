@@ -65,7 +65,7 @@ function App() {
               <a href="#" onClick={handleHomeClick}>Home</a>
             </li>
             <li className="nav-item">
-              <a href="#" onClick={handleRegisterClick}>Register</a>
+              <a href="#">Register</a>
             </li>
             <li className="nav-item">
               <a href="#" onClick={handleLoginClick}>Login</a>
