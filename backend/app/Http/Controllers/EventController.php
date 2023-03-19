@@ -67,9 +67,23 @@ class EventController extends Controller
         ], 200); 
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        // Delete a specific event from the database
+        $this->validateIdPathVariable($id);
+        $event = Event::find($id);
+
+        // if the user is not host of the event then it can't delete the event
+        if(!$this->checkIsHostOfEvent($event, $request->user()->id)) {
+            return response()->json([
+                'message' => 'Unauthorized action.',
+            ], 403); 
+        }
+
+        $event->delete();
+        
+        return response()->json([
+            'message' => 'Deleted successfuly',
+        ], 200); 
     }
 
     private function validateIdPathVariable($id)
