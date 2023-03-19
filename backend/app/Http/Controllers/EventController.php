@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\EventCollection;
+use App\Http\Resources\EventResource;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
+use \Validator;
 
 class EventController extends Controller
 {
@@ -31,7 +33,10 @@ class EventController extends Controller
 
     public function show($id)
     {
-        // Show the details of a specific event
+        $this->validateIdPathVariable($id);
+        $event = Event::find($id);
+
+        return new EventResource($event);
     }
 
     public function edit($id)
@@ -47,5 +52,13 @@ class EventController extends Controller
     public function destroy($id)
     {
         // Delete a specific event from the database
+    }
+
+    private function validateIdPathVariable($id)
+    {
+        $validator = Validator::make(
+            compact('id'),
+            ['id' => 'required|exists:events,id']
+        )->validate();
     }
 }
