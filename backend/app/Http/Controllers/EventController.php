@@ -7,6 +7,7 @@ use App\Http\Resources\EventCollection;
 use App\Http\Resources\EventResource;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
+use App\Http\Requests\UpdateEventRequest;
 use \Validator;
 
 class EventController extends Controller
@@ -28,7 +29,10 @@ class EventController extends Controller
         $newEvent->user_id = $request->user()->id;
         $newEvent->save();
 
-        return response()->json(['message' => 'Stored successfuly'], 200); 
+        return response()->json([
+            'message' => 'Stored successfuly',
+            'event' => new EventResource($newEvent)
+        ], 200); 
     }
 
     public function show($id)
@@ -39,14 +43,28 @@ class EventController extends Controller
         return new EventResource($event);
     }
 
-    public function edit($id)
+    public function update(UpdateEventRequest $request, $id)
     {
-        // Show the form for editing a specific event
-    }
+        $this->validateIdPathVariable($id);
+        $event = Event::find($id);
 
-    public function update(Request $request, $id)
-    {
-        // Update a specific event in the database
+        // if the user is not host of the event then it can't modify the event
+        if(!$this->checkIsHostOfEvent($event, $request->user()->id)) {
+            return response()->json([
+                'message' => 'Unauthorized action.',
+            ], 403); 
+        }
+
+        if(isset($request->title)) $event->title = $request->title;
+        if(isset($request->description)) $event->description = $request->description;
+        if(isset($request->latitude)) $event->latitude = $request->latitude;
+        if(isset($request->longitude)) $event->longitude = $request->longitude;
+        $event->save();
+
+        return response()->json([
+            'message' => 'Updated successfuly',
+            'event' => new EventResource($event)
+        ], 200); 
     }
 
     public function destroy($id)
@@ -60,5 +78,14 @@ class EventController extends Controller
             compact('id'),
             ['id' => 'required|exists:events,id']
         )->validate();
+    }
+
+    private function checkIsHostOfEvent($event, int $userId): bool
+    {
+        if($event->user_id == $userId) {
+            return true;
+        }
+
+        return false;
     }
 }
