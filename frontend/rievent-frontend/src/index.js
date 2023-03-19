@@ -11,7 +11,7 @@ root.render(
   
   <React.StrictMode>
     <Navbar />
-  <h1>hi</h1>
+  
   </React.StrictMode>,
 
 
