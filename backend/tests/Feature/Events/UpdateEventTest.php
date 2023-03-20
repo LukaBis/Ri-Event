@@ -21,10 +21,10 @@ class UpdateEventTest extends TestCase
     public function test_updating_event()
     {
         $userData = User::factory()
-                        ->has(Event::factory()->count(1))
+                        ->has(Event::factory()->count(1), 'hostingEvents')
                         ->create();
 
-        $event = $userData->events()->get()->first();
+        $event = $userData->hostingEvents()->get()->first();
 
         $csrfToken = $this->login($userData->toArray());
 
@@ -58,17 +58,17 @@ class UpdateEventTest extends TestCase
     public function test_updating_event_user_not_host()
     {
         $authUserData = User::factory()
-                        ->has(Event::factory()->count(1))
+                        ->has(Event::factory()->count(1), 'hostingEvents')
                         ->create();
 
         $csrfToken = $this->login($authUserData->toArray());
 
         // create a new user and his event
         $newUserData = User::factory()
-                        ->has(Event::factory()->count(1))
+                        ->has(Event::factory()->count(1), 'hostingEvents')
                         ->create();
 
-        $newUsersEvent = $newUserData->events()->get()->first();               
+        $newUsersEvent = $newUserData->hostingEvents()->get()->first();               
 
         // event data goes into request body
         $requestBody["title"] = $newUsersEvent->title . " Updated";

@@ -11,8 +11,8 @@ class Event extends Model
 {
     use HasFactory;
 
-    public function user(): BelongsTo
+    public function host(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'host_id');
     }
 }

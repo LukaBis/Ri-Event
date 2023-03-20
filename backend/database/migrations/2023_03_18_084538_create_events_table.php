@@ -17,8 +17,8 @@ return new class extends Migration
             $table->text('description');
             $table->float('latitude');
             $table->float('longitude');
-            $table->unsignedBigInteger('user_id'); // host of the event
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('host_id');
+            $table->foreign('host_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

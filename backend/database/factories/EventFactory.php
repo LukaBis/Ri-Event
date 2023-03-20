@@ -22,7 +22,7 @@ class EventFactory extends Factory
             'description' => fake()->paragraph,
             'latitude' => fake()->latitude,
             'longitude' => fake()->longitude,
-            'user_id' => User::inRandomOrder()->value('id') // random user id
+            'host_id' => User::inRandomOrder()->value('id') // random user id
         ];
     }
 }

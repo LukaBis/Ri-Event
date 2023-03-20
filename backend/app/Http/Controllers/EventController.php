@@ -26,7 +26,7 @@ class EventController extends Controller
         $newEvent->description = $request->description;
         $newEvent->latitude = $request->latitude;
         $newEvent->longitude = $request->longitude;
-        $newEvent->user_id = $request->user()->id;
+        $newEvent->host_id = $request->user()->id;
         $newEvent->save();
 
         return response()->json([
@@ -96,7 +96,7 @@ class EventController extends Controller
 
     private function checkIsHostOfEvent($event, int $userId): bool
     {
-        if($event->user_id == $userId) {
+        if($event->host_id == $userId) {
             return true;
         }
 
