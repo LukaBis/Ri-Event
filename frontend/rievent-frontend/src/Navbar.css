@@ -2,6 +2,13 @@ body {
   background-color: #6379f5;
 }
 
+nav {
+  position:sticky;
+  top: 0;
+  width: 100%;
+   /* change this to your preferred color */
+  z-index: 999; /* make sure the navbar is on top of other elements */
+}
 .Login-div {
   display: flex;
   justify-content: center;
