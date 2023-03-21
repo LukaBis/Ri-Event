@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->float('latitude');
-            $table->float('longitude');
+            $table->integer('latitude');
+            $table->integer('longitude');
             $table->unsignedBigInteger('user_id'); // host of the event
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
