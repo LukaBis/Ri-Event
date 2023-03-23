@@ -15,4 +15,9 @@ class Event extends Model
     {
         return $this->belongsTo(User::class, 'host_id');
     }
+
+    public function attendingUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

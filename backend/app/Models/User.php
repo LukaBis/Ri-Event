@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Event;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -47,5 +48,10 @@ class User extends Authenticatable
     public function hostingEvents(): HasMany
     {
         return $this->hasMany(Event::class, 'host_id');
+    }
+
+    public function attendingEvents(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class);
     }
 }
