@@ -20,4 +20,21 @@ class Event extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function setLatitudeAttribute($value){
+        $this->attributes['latitude'] = $value * 1000000;
+    }
+
+    public function setLongitudeAttribute($value){
+        $this->attributes['longitude'] = $value * 1000000;
+    }
+
+    public function getLatitudeAttribute($value){
+        return $value / 1000000;
+    }
+
+    public function getLongitudeAttribute($value){
+        return $value / 1000000;
+    }
+
 }
