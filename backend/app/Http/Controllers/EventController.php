@@ -27,6 +27,7 @@ class EventController extends Controller
         $newEvent->latitude = $request->latitude;
         $newEvent->longitude = $request->longitude;
         $newEvent->host_id = $request->user()->id;
+        $newEvent->organization_id = $request->organization()->id;
         $newEvent->save();
 
         return response()->json([
