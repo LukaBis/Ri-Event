@@ -16,6 +16,13 @@ nav {
   height: 100vh;
   transition: opacity 0.5s ease-in;
 }
+.Register-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transition: opacity 0.5s ease-in;
+}
 
 form {
   width: 400px;
