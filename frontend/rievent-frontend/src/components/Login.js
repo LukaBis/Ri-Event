@@ -13,25 +13,25 @@ function Login({ onLogin }) {
   useEffect(() => {
     const getCsrfToken = async () => {
       try {
-         token = await axios.get('/sanctum/csrf-cookie', {
-          headers: {
-            'Access-Control-Allow-Origin': '*'
-          }
-         
+        const response = await axios.get('/sanctum/csrf-cookie', {
+          withCredentials: true,
         });
         console.log('CSRF token received!');
-        console.log(token)
+        //console.log(token)
+        console.log(response.data);
+        setCsrfToken(response.data.csrfToken);
+        //console.log(getCsrfToken);
       } catch (error) {
         console.error(error);
       }
     };
+    
     
     getCsrfToken();
   }, []);
   
 
   const handleSubmit = async (event) => {
-    console.log(token)
     event.preventDefault();
     try {
       await axios.post('https://localhost/login', {
@@ -39,15 +39,16 @@ function Login({ onLogin }) {
         password,
       }, {
         headers: {
-          'X-CSRF-TOKEN': token,
-          'Access-Control-Allow-Origin': '*',
+          'X-CSRF-TOKEN': csrfToken,
         },
+        withCredentials: true,
       });
       console.log('Login successful!');
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   return (
     <div className='Login-div'>

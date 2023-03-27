@@ -20,7 +20,7 @@ use App\Http\Controllers\EventController;
 
 Route::middleware('auth:sanctum')->get('/csrf-token', function (Request $request) {
     return response()->json(['csrfToken' => csrf_token()]);
-});
+}); 
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
