@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOrganizationRequest;
 use App\Http\Resources\OrganizationCollection;
 use App\Http\Resources\OrganizationResource;
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use \Validator;
 
 class OrganizationController extends Controller
@@ -15,9 +17,9 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        $events = Organization::all();
+        $organizations = Organization::all();
 
-        return new OrganizationCollection($events);
+        return new OrganizationCollection($organizations);
     }
 
     /**
@@ -31,9 +33,20 @@ class OrganizationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreOrganizationRequest $request)
     {
-        //
+        $newOrg = new Organization();
+        $newOrg->name = $request->name;
+        $newOrg->latitude = $request->latitude;
+        $newOrg->longitude = $request->longitude;
+        $newOrg->user_id = $request->user()->id;
+        $newOrg->address = $request->address;
+        $newOrg->save();
+
+        return response()->json([
+            'message' => 'Stored successfuly',
+            'organization' => new OrganizationResource($newOrg)
+        ], 200); 
     }
 
     /**
@@ -42,9 +55,9 @@ class OrganizationController extends Controller
     public function show($id)
     {
         $this->validateIdPathVariable($id);
-        $event = Organization::find($id);
+        $organization = Organization::find($id);
 
-        return new OrganizationResource($event);
+        return new OrganizationResource($organization);
     }
 
     /**

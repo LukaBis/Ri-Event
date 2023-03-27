@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Event;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\Event;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Organization extends Model
 {
@@ -45,5 +46,26 @@ class Organization extends Model
     public function hostingEvents(): HasMany
     {
         return $this->hasMany(Event::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function setLatitudeAttribute($value){
+        $this->attributes['latitude'] = $value * 1000000;
+    }
+
+    public function setLongitudeAttribute($value){
+        $this->attributes['longitude'] = $value * 1000000;
+    }
+
+    public function getLatitudeAttribute($value){
+        return $value / 1000000;
+    }
+
+    public function getLongitudeAttribute($value){
+        return $value / 1000000;
     }
 }

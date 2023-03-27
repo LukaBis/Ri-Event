@@ -17,8 +17,10 @@ class OrganizationResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->email,
-            'admin' => $this->admin,
+            'user' => $this->user()->get()->first()->name,
+            'address' => $this->address,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
             'verified_organization' => $this->verified_organization,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

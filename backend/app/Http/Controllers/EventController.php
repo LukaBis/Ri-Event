@@ -8,6 +8,7 @@ use App\Http\Resources\EventResource;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Illuminate\Support\Facades\Log;
 use \Validator;
 
 class EventController extends Controller
@@ -21,13 +22,16 @@ class EventController extends Controller
 
     public function store(StoreEventRequest $request)
     {
+        Log::info($request);
         $newEvent = new Event();
         $newEvent->title = $request->title;
         $newEvent->description = $request->description;
         $newEvent->latitude = $request->latitude;
         $newEvent->longitude = $request->longitude;
+        //if an event is hosted by an organization, this value will represent the organization's representative. 
         $newEvent->host_id = $request->user()->id;
-        $newEvent->organization_id = $request->organization()->id;
+        //if an event is not hosted by an organization, this value will be null
+        $newEvent->organization_id = $request->organization_id;
         $newEvent->save();
 
         return response()->json([

@@ -26,7 +26,7 @@ class EventResource extends JsonResource
             'description' => $this->description,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'host' => $this->host()->get()->first() ? $this->host()->get()->first()->name : null,
+            'host' => $this->host()->get()->first()->name,
             'organization' => $this->organization()->get()->first() ? $this->organization()->get()->first()->name : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
