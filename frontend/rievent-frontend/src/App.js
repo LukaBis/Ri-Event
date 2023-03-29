@@ -8,6 +8,10 @@ import React from "react";
 import {BrowserRouter as Router, Route,Routes} from 'react-router-dom';
 
 import Navbar from './Navbar';
+import axios from 'axios';
+
+axios.defaults.baseURL = "http://localhost/"
+
 
 function App() {
   return (

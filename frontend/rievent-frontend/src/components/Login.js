@@ -1,54 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { json, Link } from 'react-router-dom';
 import axios from 'axios';
+import { BeatLoader } from 'react-spinners';
 
-let token
 function Login({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
   const [csrfToken, setCsrfToken] = useState('');
-  
-  
-  useEffect(() => {
-    const getCsrfToken = async () => {
-      try {
-        const response = await axios.get('/sanctum/csrf-cookie', {
-          withCredentials: true,
-        });
-        console.log('CSRF token received!');
-        //console.log(token)
-        console.log(response.data);
-        setCsrfToken(response.data.csrfToken);
-        //console.log(getCsrfToken);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    
-    
-    getCsrfToken();
-  }, []);
-  
+  const [loading, setLoading] = useState(false);
+
+  // useEffect(() => {
+  //   const fetchCsrfToken = async () => {
+  //     try {
+  //       const response = await axios.get('/sanctum/csrf-cookie', {
+  //         withCredentials: true,
+  //       });
+  //       setCsrfToken(response.data.csrfToken);
+  //       console.log('CSRF token received:', response.data.csrfToken);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchCsrfToken();
+  // }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
-      await axios.post('https://localhost/login', {
-        username,
-        password,
-      }, {
-        headers: {
-          'X-CSRF-TOKEN': csrfToken,
-        },
+      const response = await axios.get('/sanctum/csrf-cookie', {
         withCredentials: true,
       });
+      setCsrfToken(response.data.csrfToken);
+      console.log('CSRF token received:', response.config.headers["X-XSRF-TOKEN"]);
+       await axios.post('/login', {
+       username,
+       password,
+     }, {
+         headers: {
+           'X-XSRF-TOKEN': response.config.headers["X-XSRF-TOKEN"],
+           'Accept':"application/json",
+           'Access-Control-Allow-Origin' : '*'
+
+         },
+         withCredentials: true,
+       });
       console.log('Login successful!');
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
-  
 
   return (
     <div className='Login-div'>
@@ -61,7 +65,7 @@ function Login({ onLogin }) {
           Password:
           <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
         </label>
-        <button type="submit">Login</button>
+        {loading ? <BeatLoader /> : <button type="submit">Login</button>}
       </form>
     </div>
   );
