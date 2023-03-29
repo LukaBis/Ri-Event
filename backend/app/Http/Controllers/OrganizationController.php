@@ -23,14 +23,6 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreOrganizationRequest $request)
@@ -61,14 +53,6 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Organization $organization)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Organization $organization)
@@ -88,7 +72,7 @@ class OrganizationController extends Controller
     {
         $validator = Validator::make(
             compact('id'),
-            ['id' => 'required|exists:events,id']
+            ['id' => 'required|exists:organizations,id']
         )->validate();
     }
 }

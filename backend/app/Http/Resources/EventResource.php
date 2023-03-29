@@ -15,11 +15,6 @@ class EventResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        Log::info("this-host = " . $this->host()->get());
-        Log::info("this-org = " . $this->organization()->get());
-        Log::info("this-id = " . $this->id);
-
-
         return [
             'id' => $this->id,
             'title' => $this->title,

@@ -18,34 +18,7 @@ class EventFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {
-        /* $random = rand(0, 100);
-        Log::info('random ='.$random); 
-        if($random < 50){
-             $host_id = User::inRandomOrder()->value('id');
-            Log::info('host = '.$host_id); 
-            return [
-                'title' => fake()->sentence,
-                'description' => fake()->paragraph,
-                'latitude' => fake()->latitude,
-                'longitude' => fake()->longitude,
-                //'host_id' => User::inRandomOrder()->value('id') // random user id
-                'host_id' => $host_id
-            ];
-        }
-        else{
-             $org_id = Organization::inRandomOrder()->value('id');
-            Log::info('org = '.$org_id); 
-            return [
-                'title' => fake()->sentence,
-                'description' => fake()->paragraph,
-                'latitude' => fake()->latitude,
-                'longitude' => fake()->longitude,
-                //'organization_id' => Organization::inRandomOrder()->value('id') // random org id
-                'organization_id' => $org_id
-            ];
-        } */
-        
+    {        
         return [
             'title' => fake()->sentence,
             'description' => fake()->paragraph,

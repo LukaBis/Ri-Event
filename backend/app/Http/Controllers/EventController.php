@@ -22,7 +22,6 @@ class EventController extends Controller
 
     public function store(StoreEventRequest $request)
     {
-        Log::info($request);
         $newEvent = new Event();
         $newEvent->title = $request->title;
         $newEvent->description = $request->description;
