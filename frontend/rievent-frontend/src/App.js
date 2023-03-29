@@ -11,7 +11,7 @@ import Navbar from './Navbar';
 import axios from 'axios';
 
 axios.defaults.baseURL = "http://localhost/"
-
+axios.defaults.withCredentials = true;
 
 function App() {
   return (

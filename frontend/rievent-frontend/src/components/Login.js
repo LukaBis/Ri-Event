@@ -3,8 +3,10 @@ import { json, Link } from 'react-router-dom';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
 
+axios.defaults.withCredentials = true;
+
 function Login({ onLogin }) {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [csrfToken, setCsrfToken] = useState('');
   const [loading, setLoading] = useState(false);
@@ -35,8 +37,10 @@ function Login({ onLogin }) {
       setCsrfToken(response.data.csrfToken);
       console.log('CSRF token received:', response.config.headers["X-XSRF-TOKEN"]);
        await axios.post('/login', {
-       username,
-       password,
+       'username' : 'Alvina Buckridge',
+       'password' : 'password',
+       'email': 'kristopher50@example.net'
+       
      }, {
          headers: {
            'X-XSRF-TOKEN': response.config.headers["X-XSRF-TOKEN"],
@@ -58,8 +62,8 @@ function Login({ onLogin }) {
     <div className='Login-div'>
       <form className="login-form" onSubmit={handleSubmit}>
         <label>
-          Username:
-          <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
+          Email:
+          <input type="text" value={email} onChange={(event) => setEmail(event.target.value)} />
         </label>
         <label>
           Password:
