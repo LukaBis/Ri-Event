@@ -8,6 +8,7 @@ use App\Http\Resources\EventResource;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use App\Models\Organization;
 use Illuminate\Support\Facades\Log;
 use \Validator;
 
@@ -22,6 +23,16 @@ class EventController extends Controller
 
     public function store(StoreEventRequest $request)
     {
+        //if an organization id was provided in request, we need to check if that organization belongs to the user that made the request
+        if($request->organization_id){
+            $org = Organization::find($request->organization_id);
+            if($org->user_id !== $request->user()->id){
+                return response()->json([
+                    'message' => 'Unauthorized action.',
+                ], 403);
+            }
+        }
+
         $newEvent = new Event();
         $newEvent->title = $request->title;
         $newEvent->description = $request->description;
