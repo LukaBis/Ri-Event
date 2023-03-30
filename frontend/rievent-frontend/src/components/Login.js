@@ -31,7 +31,7 @@ function Login({ onLogin }) {
     event.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.get('/sanctum/csrf-cookie', {
+      const response = await axios.get('http://localhost:8000/sanctum/csrf-cookie', {
         withCredentials: true,
       });
       setCsrfToken(response.data.csrfToken);
