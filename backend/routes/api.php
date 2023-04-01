@@ -6,6 +6,7 @@ use Laravel\Fortify\Http\Controllers\ProfileInformationController;
 use Laravel\Fortify\Http\Controllers\PasswordController;
 use Laravel\Fortify\Features;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\OrganizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +39,5 @@ Route::middleware('auth:sanctum')->group(function() {
 
     Route::resource('events', EventController::class);
 
+    Route::resource('organizations', OrganizationController::class); 
 });

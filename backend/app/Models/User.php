@@ -50,6 +50,11 @@ class User extends Authenticatable
         return $this->hasMany(Event::class, 'host_id');
     }
 
+    public function organisations(): HasMany
+    {
+        return $this->hasMany(Organization::class, 'user_id');
+    }
+
     public function attendingEvents(): BelongsToMany
     {
         return $this->belongsToMany(Event::class);
