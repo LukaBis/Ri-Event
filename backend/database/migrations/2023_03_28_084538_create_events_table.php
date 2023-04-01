@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('host_id')->nullable(); // host of the event
             $table->foreign('host_id')->references('id')->on('users');
             $table->unsignedBigInteger('organization_id')->nullable();
-            $table->foreign('organization_id')->references('id')->on('organizations');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->timestamps();
         });
     }
