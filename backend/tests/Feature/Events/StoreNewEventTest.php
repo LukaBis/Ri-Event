@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Organization;
 
 class StoreNewEventTest extends TestCase
 {
@@ -38,6 +39,82 @@ class StoreNewEventTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson([
             'message' => 'Stored successfuly'
+        ]);
+        
+    }
+
+    /**
+     * Test storing new event hosted by organization
+     *
+     * @return void
+     */
+    public function test_storing_new_event_hosted_by_organization()
+    {
+        $user = User::factory()
+            ->has(Organization::factory()->count(2), 'organisations')
+            ->create();
+
+        $organization = $user->organisations()->first();
+
+        $csrfToken = $this->login($user->toArray());
+
+        // event data
+        $eventData["title"] = "My New Event";
+        $eventData["description"] = "This is new event's description.";
+        $eventData["latitude"] = 55;
+        $eventData["longitude"] = 54;
+        $eventData["organization_id"] = $organization->id;
+
+        $response = $this->post('/api/events', $eventData, [
+            'X-XSRF-TOKEN' => $csrfToken,
+            'Referer' => 'localhost:3000',
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'message' => 'Stored successfuly'
+        ]);
+        
+    }
+
+    /**
+     * Test validation mesdsage when storing new event hosted by organization
+     *
+     * @return void
+     */
+    public function test_validation_when_storing_new_event_hosted_by_organization()
+    {
+        $user = User::factory()
+            ->has(Organization::factory()->count(2), 'organisations')
+            ->create();
+
+        $organization = $user->organisations()->first();
+
+        $userTwo = User::factory()
+            ->has(Organization::factory()->count(2), 'organisations')
+            ->create();
+
+        $someoneElsesOrganization = $userTwo->organisations()->first();
+
+        $csrfToken = $this->login($user->toArray());
+
+        // event data
+        $eventData["title"] = "My New Event";
+        $eventData["description"] = "This is new event's description.";
+        $eventData["latitude"] = 55;
+        $eventData["longitude"] = 54;
+        $eventData["organization_id"] = $someoneElsesOrganization->id;
+
+        $response = $this->post('/api/events', $eventData, [
+            'X-XSRF-TOKEN' => $csrfToken,
+            'Referer' => 'localhost:3000',
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertStatus(403);
+        $response->assertJson([
+            'message' => 'Unauthorized action.'
         ]);
         
     }
