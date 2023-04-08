@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from '../Navbar';
 
 const Register = () => {
   const [fullName, setFullName] = useState("");
@@ -15,7 +16,7 @@ const Register = () => {
     event.preventDefault();
     try {
       // Fetch CSRF token
-      const response = await axios.get('http://localhost:8000/sanctum/csrf-cookie');
+      const response = await axios.get('http://localhost/sanctum/csrf-cookie');
       setCsrfToken(response.data.csrfToken);
       console.log('CSRF token received:', response.config.headers["X-XSRF-TOKEN"]);
       // Submit form data to server
@@ -39,7 +40,7 @@ const Register = () => {
   };
 
   return (
-    <div className="Register-div">
+    <><Navbar /><div className="Register-div">
       <form onSubmit={handleSubmit}>
         <label htmlFor="fullName">Full Name</label>
         <input
@@ -48,8 +49,7 @@ const Register = () => {
           name="fullName"
           placeholder="Enter your full name"
           value={fullName}
-          onChange={(event) => setFullName(event.target.value)}
-        />
+          onChange={(event) => setFullName(event.target.value)} />
 
         <label htmlFor="email">Email</label>
         <input
@@ -58,8 +58,7 @@ const Register = () => {
           name="email"
           placeholder="Enter your email address"
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
+          onChange={(event) => setEmail(event.target.value)} />
 
         <label htmlFor="password">Password</label>
         <input
@@ -68,8 +67,7 @@ const Register = () => {
           name="password"
           placeholder="Enter your password"
           value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
+          onChange={(event) => setPassword(event.target.value)} />
 
         <label htmlFor="confirmPassword">Confirm Password</label>
         <input
@@ -78,15 +76,14 @@ const Register = () => {
           name="confirmPassword"
           placeholder="Confirm your password"
           value={confirmPassword}
-          onChange={(event) => setConfirmPassword(event.target.value)}
-        />
+          onChange={(event) => setConfirmPassword(event.target.value)} />
 
         <button type="submit">Register</button>
         <p>
-        <Link to="/login">Already have an account? Log in!</Link>
+          <Link to="/login">Already have an account? Log in!</Link>
         </p>
       </form>
-    </div>
+    </div></>
   );
 };
 

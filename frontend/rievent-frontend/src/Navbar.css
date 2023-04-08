@@ -8,6 +8,7 @@ nav {
   width: 100%;
    /* change this to your preferred color */
   z-index: 999; /* make sure the navbar is on top of other elements */
+  margin-top: 100;
 }
 .Login-div {
   display: flex;

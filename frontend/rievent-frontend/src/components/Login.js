@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { json, Link } from 'react-router-dom';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
+import { redirect } from 'react-router-dom';
+import Navbar from '../Navbar';
 
 axios.defaults.withCredentials = true;
 
@@ -10,7 +12,7 @@ function Login({ onLogin }) {
   const [password, setPassword] = useState('');
   const [csrfToken, setCsrfToken] = useState('');
   const [loading, setLoading] = useState(false);
-
+  
   // useEffect(() => {
   //   const fetchCsrfToken = async () => {
   //     try {
@@ -31,7 +33,7 @@ function Login({ onLogin }) {
     event.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:8000/sanctum/csrf-cookie', {
+      const response = await axios.get('http://localhost/sanctum/csrf-cookie', {
         withCredentials: true,
       });
       setCsrfToken(response.data.csrfToken);
@@ -51,6 +53,7 @@ function Login({ onLogin }) {
          withCredentials: true,
        });
       console.log('Login successful!');
+      redirect('/https://www.facebook.com/')
     } catch (error) {
       console.error(error);
     } finally {
@@ -59,7 +62,7 @@ function Login({ onLogin }) {
   };
 
   return (
-    <div className='Login-div'>
+    <><Navbar /><div className='Login-div'>
       <form className="login-form" onSubmit={handleSubmit}>
         <label>
           Email:
@@ -71,7 +74,7 @@ function Login({ onLogin }) {
         </label>
         {loading ? <BeatLoader /> : <button type="submit">Login</button>}
       </form>
-    </div>
+    </div></>
   );
 }
 
