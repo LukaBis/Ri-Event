@@ -28,6 +28,7 @@ class UpdateOrganizationTest extends TestCase
 
         $csrfToken = $this->login($userData->toArray());
 
+        
         // organization data goes into request body
         $requestBody["name"] = $organization->name . " Updated";
         $requestBody["_method"] = 'PUT';
