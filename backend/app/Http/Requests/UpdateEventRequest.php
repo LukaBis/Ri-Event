@@ -17,7 +17,8 @@ class UpdateEventRequest extends FormRequest
             'title' => ['min:3'],
             'description' => ['min:20'],
             'latitude' => ['numeric'],
-            'longitude' => ['numeric']
+            'longitude' => ['numeric'],
+            'start_time' => ['date_format:H:i']
         ];
     }
 }

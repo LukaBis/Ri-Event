@@ -44,4 +44,8 @@ class Event extends Model
         return $value / 1000000;
     }
 
+    //converts hh:mm:ss to hh:mm
+    public function getStartTimeAttribute($value){
+        return substr($value, 0, 5);
+    }
 }

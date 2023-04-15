@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->integer('latitude');
             $table->integer('longitude');
+            $table->time('start_time');
             $table->unsignedBigInteger('host_id')->nullable(); // host of the event
             $table->foreign('host_id')->references('id')->on('users');
             $table->unsignedBigInteger('organization_id')->nullable();
