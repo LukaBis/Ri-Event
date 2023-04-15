@@ -18,7 +18,8 @@ class StoreEventRequest extends FormRequest
             'description' => ['required', 'min:20'],
             'latitude' => ['required', 'numeric'],
             'longitude' => ['required', 'numeric'],
-            'start_time' => ['required', 'date_format:H:i']
+            'start_time' => ['required', 'date_format:H:i'],
+            'date' => ['required', 'date']
         ];
     }
 }
