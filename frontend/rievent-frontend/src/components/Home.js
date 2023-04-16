@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar';
+import Cookies from 'js-cookie';
 import '../styles/Home.css';
-
-
 
 
 const Home = () => {
@@ -12,35 +11,33 @@ const Home = () => {
 
   const handleLogout = async () => {
   
-  
     try {
-      const response = await fetch('/logout', {
-        method: 'POST',
-        headers: {
-          'X-XSRF-TOKEN': localStorage.getItem('XSRF-TOKEN').toString(),
-          'Accept': "application/json",
-          'Referer':'localhost:3000'
-        },
-        // credentials: 'include',
-      });
-      if (!response.ok) {
-        //console.log(response)
-        throw new Error('Logout request failed');
-      }
-      localStorage.removeItem('XSRF-TOKEN')
-      navigate('/login')
+        const response = await fetch('/logout', {
+            method: 'POST',
+            headers: {
+                'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
+                'Accept': "application/json",
+                'Referer':'localhost:3000'
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Logout request failed');
+        }
+
+        Cookies.remove('laravel_session');
+        Cookies.remove('XSRF-TOKEN');
+
+        navigate('/login');
      
     } catch (error) {
-      console.error(error);
-      // handle error
+        console.error(error);
     }
   };
 
   useEffect(() => {
-    console.log("hi mom")
-    console.log( localStorage.getItem('XSRF-TOKEN'))
-    if (localStorage.getItem('XSRF-TOKEN') === "undefined" || localStorage.getItem('XSRF-TOKEN') === null ) {
-      navigate('/login')
+    if (!Cookies.get('XSRF-TOKEN')) {
+        navigate('/login')
     }
   }, []);
 
