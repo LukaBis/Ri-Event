@@ -1,33 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { json, Link } from 'react-router-dom';
+import { json, Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
 import { redirect } from 'react-router-dom';
 import Navbar from '../Navbar';
+import { useNavigate } from 'react-router-dom';
 
 axios.defaults.withCredentials = true;
+
+
+
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [csrfToken, setCsrfToken] = useState('');
   const [loading, setLoading] = useState(false);
+  const Navigate = useNavigate('')
   
-  // useEffect(() => {
-  //   const fetchCsrfToken = async () => {
-  //     try {
-  //       const response = await axios.get('/sanctum/csrf-cookie', {
-  //         withCredentials: true,
-  //       });
-  //       setCsrfToken(response.data.csrfToken);
-  //       console.log('CSRF token received:', response.data.csrfToken);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
+  useEffect(() => {
+    if(localStorage.getItem('XSRF-TOKEN') != "undefined" && localStorage.getItem('XSRF-TOKEN') != null ){
+      Navigate('/')
+    }
 
-  //   fetchCsrfToken();
-  // }, []);
+  }, [])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -52,13 +48,16 @@ function Login({ onLogin }) {
          },
          withCredentials: true,
        });
-      console.log('Login successful!');
-      redirect('/https://www.facebook.com/')
+      console.log(response.config.headers["X-XSRF-TOKEN"]);
+      localStorage.setItem('XSRF-TOKEN',response.config.headers["X-XSRF-TOKEN"])
+      Navigate('/')
+      
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
+    
   };
 
   return (
