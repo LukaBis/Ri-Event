@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../Navbar';
 
@@ -34,6 +34,7 @@ const Register = () => {
       });
       
       console.log('Registration successful!');
+      redirect('/')
     } catch (error) {
       console.error(error);
     }
