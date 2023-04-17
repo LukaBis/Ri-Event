@@ -13,7 +13,7 @@ function Navbar() {
         <nav className="navbar">
           <ul className="nav-list">
             <li className="nav-item">
-            <Link to='/'>Home</Link>
+            <Link to='/homepage'>Home</Link>
             </li>
             <li className="nav-item">
               <Link to='/register'>Register</Link>
