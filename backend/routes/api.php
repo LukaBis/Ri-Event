@@ -7,6 +7,7 @@ use Laravel\Fortify\Http\Controllers\PasswordController;
 use Laravel\Fortify\Features;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function() {
 
-    Route::get('/user', function(Request $request) {
-        return $request->user();
-    }); 
+    Route::get('/user', [UserController::class, 'user']); 
 
     if (Features::enabled(Features::updateProfileInformation())) {
         Route::put('/user/profile-information', [ProfileInformationController::class, 'update']);

@@ -10,13 +10,13 @@ function Login({ onLogin }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const Navigate = useNavigate('')
+    const navigate = useNavigate('')
 
     useEffect(() => {
         // if there is a cookie with laravel session that means we are logged in 
         // and it should redirect to home page
         if (Cookies.get('laravel_session')){
-            Navigate('/');
+            navigate('/');
         }
     }, [])
 
@@ -42,7 +42,7 @@ function Login({ onLogin }) {
                 withCredentials: true
             });
 
-            Navigate('/');
+            navigate('/');
             
         } catch (error) {
             console.error(error);
