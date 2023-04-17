@@ -62,6 +62,9 @@ const Home = () => {
             <a href='/connections'>Connections</a>
           </li>
           <li>
+            <a href='/organisations'>Organisations</a>
+          </li>
+          <li>
             <button onClick={() => handleLogout()}>Logout</button>
           </li>
         </ul>
