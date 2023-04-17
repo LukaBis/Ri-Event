@@ -38,6 +38,8 @@ class EventController extends Controller
         $newEvent->description = $request->description;
         $newEvent->latitude = $request->latitude;
         $newEvent->longitude = $request->longitude;
+        $newEvent->start_time = $request->start_time;
+        $newEvent->date = $request->date;
         //if an event is hosted by an organization, this value will represent the organization's representative. 
         $newEvent->host_id = $request->user()->id;
         //if an event is not hosted by an organization, this value will be null
@@ -74,6 +76,8 @@ class EventController extends Controller
         if (isset($request->description)) $event->description = $request->description;
         if (isset($request->latitude)) $event->latitude = $request->latitude;
         if (isset($request->longitude)) $event->longitude = $request->longitude;
+        if (isset($request->start_time)) $event->start_time = $request->start_time;
+        if (isset($request->date)) $event->date = $request->date;
         $event->save();
 
         return response()->json([

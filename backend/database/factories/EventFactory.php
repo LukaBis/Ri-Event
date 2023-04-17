@@ -26,6 +26,8 @@ class EventFactory extends Factory
             'description' => fake()->paragraph,
             'latitude' => fake()->latitude,
             'longitude' => fake()->longitude,
+            'start_time' => fake()->time('H:i', false),
+            'date' => fake()->date,
             'organization_id' => $randomOrganization ? $randomOrganization->id : null,
             'host_id' => $randomOrganization ? $randomOrganization->user()->get()->first()->id : User::inRandomOrder()->first()->id
         ];
