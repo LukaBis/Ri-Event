@@ -23,13 +23,14 @@ import { drawerWidth } from './Main';
 import { AppBar } from './AppBar';
 import { DrawerHeader } from './DrawerHeader';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 export default function PersistentDrawerLeft() {
     const theme = useTheme();
     const navigate = useNavigate('');
     const [open, setOpen] = React.useState(false);
+    const location = useLocation();
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -65,7 +66,9 @@ export default function PersistentDrawerLeft() {
       };
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{
+            display: (location.pathname !== '/login' && location.pathname !== '/register') ? 'flex' : 'none',
+        }}>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
             <Toolbar>
@@ -131,7 +134,6 @@ export default function PersistentDrawerLeft() {
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
-                
             </Main>
         </Box>
     );
