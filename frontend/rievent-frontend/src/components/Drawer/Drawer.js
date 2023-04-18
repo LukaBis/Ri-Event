@@ -67,7 +67,7 @@ export default function PersistentDrawerLeft() {
 
     return (
         <Box sx={{
-            display: (location.pathname !== '/login' && location.pathname !== '/register') ? 'flex' : 'none',
+            display: (location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/homepage') ? 'flex' : 'none',
         }}>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
