@@ -57,6 +57,8 @@ export default function PersistentDrawerLeft() {
     
             Cookies.remove('laravel_session');
             Cookies.remove('XSRF-TOKEN');
+
+            handleDrawerClose();
     
             navigate('/login');
          
