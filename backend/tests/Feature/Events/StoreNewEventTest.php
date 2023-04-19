@@ -66,6 +66,8 @@ class StoreNewEventTest extends TestCase
         $eventData["latitude"] = 55;
         $eventData["longitude"] = 54;
         $eventData["organization_id"] = $organization->id;
+        $eventData["start_time"] = "22:00";
+        $eventData["date"] = "2023-05-01";
 
         $response = $this->post('/api/events', $eventData, [
             'X-XSRF-TOKEN' => $csrfToken,
@@ -107,6 +109,8 @@ class StoreNewEventTest extends TestCase
         $eventData["latitude"] = 55;
         $eventData["longitude"] = 54;
         $eventData["organization_id"] = $someoneElsesOrganization->id;
+        $eventData["start_time"] = "22:00";
+        $eventData["date"] = "2023-05-01";
 
         $response = $this->post('/api/events', $eventData, [
             'X-XSRF-TOKEN' => $csrfToken,
