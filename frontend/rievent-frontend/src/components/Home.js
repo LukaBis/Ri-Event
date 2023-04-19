@@ -41,6 +41,7 @@ const Home = () => {
             sx={{
                 display: 'flex',
                 flexDirection: 'row',
+                justifyContent: 'center',
                 p: 1,
                 m: 1,
                 borderRadius: 1,
