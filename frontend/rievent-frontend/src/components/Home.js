@@ -7,10 +7,12 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import EventItem from './EventItem';
 import getAllEvents from '../requests/get/getAllEvents';
+import getProfilePicture from '../requests/getProfilePicture';
 
 const Home = () => {
     const [user, setUser] = useState(null);
     const [events, setEvents] = useState(null);
+    const [picture, setPicture] = useState(null);
     const navigate = useNavigate('');
     // remove this later
     const randomImages = [
@@ -28,10 +30,12 @@ const Home = () => {
     // get authenticated user
     getAuthenticatedUser().then(user => setUser(user));
     getAllEvents().then(events => setEvents(events));
+    getProfilePicture().then(picture => setPicture(picture))
   }, []);
 
   return (
     <div className='Home' >
+        <img src={picture} alt="Profile picture" />
         <Box className='heading' sx={{ m: 8 }}>
             <Typography variant='h3'>Hello {user?.name}, Discover Local Events</Typography>
             <Typography variant='paragraph' color={'GrayText'}>Stay up-to-date on the latest happenings and join the city's vibrant community</Typography>
