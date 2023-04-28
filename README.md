@@ -18,5 +18,7 @@ Backend:
   
   - have npm installed
   - enter frontend folder
-  - run: npm i
-  - run: npm start
+  - run this to install dependecies:
+    * `npm install`
+  - run this to start react app:
+    * `npm start`
