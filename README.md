@@ -1,4 +1,13 @@
-# Installation and setup
+# Ri-Event App
+
+## Introduction
+
+This app alaws you to search for events in Rijeka. Users and organizastions can also create events using this app. You can specify what type of event are you hosting, when it starts, at what location, add some image for your event etc. 
+
+After user creates an account on registration form, he or she can then search and see what type of events they want to attend.
+
+
+## Installation and setup
 
 Backend:
 
@@ -22,3 +31,14 @@ Backend:
     * `npm install`
   - run this to start react app:
     * `npm start`
+
+
+## Technologies used
+
+- Laravel
+- Docker
+- Laravel Sail
+- Laravel Sanctum
+- Laravel Fortify
+- React
+- Material UI
