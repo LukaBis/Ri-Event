@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+
+import { Link } from 'react-router-dom';
+
 import axios from 'axios';
 
 import Navbar from './Navbar/Navbar';
@@ -26,7 +28,6 @@ const Register = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
       // Fetch CSRF token
       const response = await axios.get('http://localhost/sanctum/csrf-cookie', {
@@ -124,3 +125,4 @@ const Register = () => {
 };
 
 export default Register;
+
