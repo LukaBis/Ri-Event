@@ -38,11 +38,7 @@ class StoreNewEventTest extends TestCase
             'Accept' => 'application/json',
         ]);
 
-        $response->assertStatus(200);
-        $response->assertJson([
-            'message' => 'Stored successfuly'
-        ]);
-        
+        $response->assertStatus(201);        
     }
 
     /**
@@ -75,11 +71,7 @@ class StoreNewEventTest extends TestCase
             'Accept' => 'application/json',
         ]);
 
-        $response->assertStatus(200);
-        $response->assertJson([
-            'message' => 'Stored successfuly'
-        ]);
-        
+        $response->assertStatus(201);
     }
 
     /**

@@ -13,6 +13,8 @@ class Event extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function host(): BelongsTo
     {
         return $this->belongsTo(User::class, 'host_id');
@@ -28,24 +30,29 @@ class Event extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function setLatitudeAttribute($value){
+    public function setLatitudeAttribute($value)
+    {
         $this->attributes['latitude'] = $value * 1000000;
     }
 
-    public function setLongitudeAttribute($value){
+    public function setLongitudeAttribute($value)
+    {
         $this->attributes['longitude'] = $value * 1000000;
     }
 
-    public function getLatitudeAttribute($value){
+    public function getLatitudeAttribute($value)
+    {
         return $value / 1000000;
     }
 
-    public function getLongitudeAttribute($value){
+    public function getLongitudeAttribute($value)
+    {
         return $value / 1000000;
     }
 
     //converts hh:mm:ss to hh:mm
-    public function getStartTimeAttribute($value){
+    public function getStartTimeAttribute($value)
+    {
         return substr($value, 0, 5);
     }
 }
