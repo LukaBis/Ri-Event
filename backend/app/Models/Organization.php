@@ -12,16 +12,7 @@ class Organization extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -53,19 +44,23 @@ class Organization extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function setLatitudeAttribute($value){
+    public function setLatitudeAttribute($value)
+    {
         $this->attributes['latitude'] = $value * 1000000;
     }
 
-    public function setLongitudeAttribute($value){
+    public function setLongitudeAttribute($value)
+    {
         $this->attributes['longitude'] = $value * 1000000;
     }
 
-    public function getLatitudeAttribute($value){
+    public function getLatitudeAttribute($value)
+    {
         return $value / 1000000;
     }
 
-    public function getLongitudeAttribute($value){
+    public function getLongitudeAttribute($value)
+    {
         return $value / 1000000;
     }
 }

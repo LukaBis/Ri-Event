@@ -41,8 +41,7 @@ class UpdateOrganizationTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Updated successfuly',
-            'organization' => [
+            'data' => [
                 'name' => $organization->name . " Updated",
                 'address' => $organization->address
             ]
