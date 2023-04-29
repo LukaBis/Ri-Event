@@ -26,6 +26,7 @@ import Cookies from 'js-cookie';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 
+
 export default function PersistentDrawerLeft() {
     const theme = useTheme();
     const navigate = useNavigate('');
@@ -42,7 +43,7 @@ export default function PersistentDrawerLeft() {
 
     const handleLogout = async () => {
         try {
-            const response = await fetch('/logout', {
+            const response = await fetch('http://localhost:8000/logout', {
                 method: 'POST',
                 headers: {
                     'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
@@ -50,10 +51,6 @@ export default function PersistentDrawerLeft() {
                     'Referer':'localhost:3000'
                 },
             });
-    
-            if (!response.ok) {
-                throw new Error('Logout request failed');
-            }
     
             Cookies.remove('laravel_session');
             Cookies.remove('XSRF-TOKEN');
@@ -109,7 +106,7 @@ export default function PersistentDrawerLeft() {
                 <Divider />
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={() => navigate('/homepage')}>
                             <ListItemIcon>
                                 <HomeIcon />
                             </ListItemIcon>
@@ -117,7 +114,7 @@ export default function PersistentDrawerLeft() {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={() => navigate('/events')}>
                             <ListItemIcon>
                                 <EventIcon />
                             </ListItemIcon>
