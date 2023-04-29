@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import EventItem from './EventItem';
 import getAllEvents from '../requests/get/getAllEvents';
-import getProfilePicture from '../requests/getProfilePicture';
+import getProfilePicture from '../requests/get/getProfilePicture';
 
 const Home = () => {
     const [user, setUser] = useState(null);
