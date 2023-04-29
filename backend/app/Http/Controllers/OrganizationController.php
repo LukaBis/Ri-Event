@@ -28,18 +28,15 @@ class OrganizationController extends Controller
      */
     public function store(StoreOrganizationRequest $request)
     {
-        $newOrg = new Organization();
-        $newOrg->name = $request->name;
-        $newOrg->latitude = $request->latitude;
-        $newOrg->longitude = $request->longitude;
-        $newOrg->user_id = $request->user()->id;
-        $newOrg->address = $request->address;
-        $newOrg->save();
+        $newOrg = Organization::create([
+            'name' => $request->name,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'user_id' => $request->user()->id,
+            'address' => $request->address
+        ]);
 
-        return response()->json([
-            'message' => 'Stored successfuly',
-            'organization' => new OrganizationResource($newOrg)
-        ], 200); 
+        return new OrganizationResource($newOrg); 
     }
 
     /**
@@ -68,16 +65,10 @@ class OrganizationController extends Controller
             ], 403);
         }
 
-        if (isset($request->name)) $org->name = $request->name;
-        if (isset($request->address)) $org->address = $request->address;
-        if (isset($request->latitude)) $org->latitude = $request->latitude;
-        if (isset($request->longitude)) $org->longitude = $request->longitude;
+        $org->fill($request->only(['name', 'address', 'latitude', 'longitude']));
         $org->save();
 
-        return response()->json([
-            'message' => 'Updated successfuly',
-            'organization' => new OrganizationResource($org)
-        ], 200);
+        return new OrganizationResource($org);
     }
 
     /**
@@ -97,9 +88,7 @@ class OrganizationController extends Controller
 
         $org->delete();
 
-        return response()->json([
-            'message' => 'Deleted successfuly',
-        ], 200);
+        return response()->json(['message' => 'Deleted successfuly'], 200);
     }
 
     private function validateIdPathVariable($id)
