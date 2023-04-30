@@ -22,7 +22,7 @@ class UserController extends Controller
         return $image->response('jpg');
     }
 
-    public function uploadPicture(Request $request)
+     public function uploadPicture(Request $request)
     {
         $user = auth()->user();
         $image = $request->file('image');
@@ -36,7 +36,6 @@ class UserController extends Controller
         }
         else {
             $filename = time() . '-user' . $user->id . '.' . $image->getClientOriginalExtension();
-            //$image->storeAs('profile_images', $filename);
 
             $path = Storage::putFileAs('profile_images', $image, $filename);
 
@@ -45,16 +44,16 @@ class UserController extends Controller
                 Storage::delete($user->image_path);
             }
 
-            //$user->image_path = 'profile_images/' . $filename;
             $user->image_path = $path;
             $user->save();
 
             return response()->json(['message' => 'Profile picture uploaded successfully']);
         }
-    }
+    } 
 
     //this method deletes user's picture and sets it to default
-    public function deletePicture(){
+    public function deletePicture()
+    {
         $user = auth()->user();
 
         if ($user->image_path != 'profile_images/blank-profile-image.jpg') {
@@ -62,8 +61,10 @@ class UserController extends Controller
 
             $user->image_path = 'profile_images/blank-profile-image.jpg';
             $user->save();
+
+            return response()->json(['message' => 'Profile picture deleted successfully']);
         }
 
-        return response()->json(['message' => 'Profile picture deleted successfully']);
+        return response()->json(['message' => 'Nothing to delete']);
     }
 }

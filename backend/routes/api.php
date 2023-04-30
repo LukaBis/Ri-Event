@@ -45,9 +45,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::resource('organizations', OrganizationController::class);
 
-    Route::get('/picture', [UserController::class, 'showPicture']);
+    Route::get('/profile-picture', [UserController::class, 'showPicture']);
 
-    Route::put('/picture', [UserController::class, 'uploadPicture']);
+    Route::put('/profile-picture', [UserController::class, 'uploadPicture']);
 
-    Route::delete('/picture', [UserController::class, 'deletePicture']);
+    Route::delete('/profile-picture', [UserController::class, 'deletePicture']);
 });
