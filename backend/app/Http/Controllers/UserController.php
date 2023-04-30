@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    private const DEFAULT_PROFILE_IMAGE = 'profile_images/blank-profile-image.jpg';
+
     public function user(Request $request)
     {
         return $request->user();
@@ -16,39 +17,26 @@ class UserController extends Controller
 
     public function showPicture()
     {
-        $user = auth()->user();
-        $image = Storage::get($user->image_path);
-        $image = Image::make($image);
-        return $image->response('jpg');
+        return asset(auth()->user()->image_path);
     }
 
-     public function uploadPicture(Request $request)
+    public function uploadPicture(Request $request)
     {
         $user = auth()->user();
         $image = $request->file('image');
-        $img = Image::make($image);
 
-        if ($img->getHeight() != $img->getWidth()) {
-            return response()->json(['message' => 'Unsuccessful upload - image needs to have same height and width']);
-        } 
-        else if( $image->getClientOriginalExtension() != 'jpg' && $image->getClientOriginalExtension() != 'png' && $image->getClientOriginalExtension() != 'jpeg'){
-            return response()->json(["message" => "Unsuccessful upload - image needs to be of type 'jpg', 'jpeg' or 'png'"]);
+        $filename = time() . '-user' . $user->id . '.' . $image->getClientOriginalExtension();
+        $path = Storage::putFileAs('profile_images', $image, $filename);
+
+        //if user previously had an image different than the default, that image needs to be deleted
+        if ($user->image_path != self::DEFAULT_PROFILE_IMAGE) {
+            Storage::delete($user->image_path);
         }
-        else {
-            $filename = time() . '-user' . $user->id . '.' . $image->getClientOriginalExtension();
 
-            $path = Storage::putFileAs('profile_images', $image, $filename);
+        $user->image_path = $path;
+        $user->save();
 
-            //if user previously had an image different than the default, that image needs to be deleted
-            if ($user->image_path != 'profile_images/blank-profile-image.jpg') {
-                Storage::delete($user->image_path);
-            }
-
-            $user->image_path = $path;
-            $user->save();
-
-            return response()->json(['message' => 'Profile picture uploaded successfully']);
-        }
+        return response()->json(['message' => 'Profile picture uploaded successfully']);
     } 
 
     //this method deletes user's picture and sets it to default
@@ -56,10 +44,10 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->image_path != 'profile_images/blank-profile-image.jpg') {
+        if ($user->image_path != self::DEFAULT_PROFILE_IMAGE) {
             Storage::delete($user->image_path);
 
-            $user->image_path = 'profile_images/blank-profile-image.jpg';
+            $user->image_path = self::DEFAULT_PROFILE_IMAGE;
             $user->save();
 
             return response()->json(['message' => 'Profile picture deleted successfully']);
