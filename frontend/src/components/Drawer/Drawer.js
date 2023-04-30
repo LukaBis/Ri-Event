@@ -27,7 +27,6 @@ import { useDrawerState } from './useDrawerState';
 import useHandleLogout from './useHandleLogout';
 
 
-
 export default function PersistentDrawerLeft() {
     const theme = useTheme();
     const location = useLocation();
@@ -38,7 +37,10 @@ export default function PersistentDrawerLeft() {
         handleLogout();
         handleDrawerClose();
     };
-    return(
+
+    
+    return (
+
         <Box sx={{
             display: (location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/homepage') ? 'flex' : 'none',
         }}>
@@ -80,7 +82,7 @@ export default function PersistentDrawerLeft() {
                 <Divider />
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton onClick={() => navigate('/homepage')}>
+                        <ListItemButton>
                             <ListItemIcon>
                                 <HomeIcon />
                             </ListItemIcon>
@@ -88,7 +90,7 @@ export default function PersistentDrawerLeft() {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton onClick={() => navigate('/events')}>
+                        <ListItemButton>
                             <ListItemIcon>
                                 <EventIcon />
                             </ListItemIcon>
