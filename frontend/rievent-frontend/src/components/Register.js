@@ -19,7 +19,7 @@ const Register = () => {
         
         try {
             // Fetch CSRF token
-            const response = await axios.get('http://localhost/sanctum/csrf-cookie', {
+            const response = await axios.get('/sanctum/csrf-cookie', {
                 withCredentials: true,
             });
 
