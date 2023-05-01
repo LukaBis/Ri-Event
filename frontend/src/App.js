@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Home from './components/Home';
 import Login from './components/Login';
@@ -6,7 +5,7 @@ import Register from './components/Register';
 import React from "react";
 import {BrowserRouter as Router, Route,Routes} from 'react-router-dom';
 import axios from 'axios';
-import Welcome from './components/Welcome';
+import Welcome from './components/Welcome/Welcome';
 import PersistentDrawerLeft from './components/Drawer/Drawer';
 
 axios.defaults.baseURL = "http://localhost/"
