@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -22,47 +22,21 @@ import { Main } from './Main';
 import { drawerWidth } from './Main';
 import { AppBar } from './AppBar';
 import { DrawerHeader } from './DrawerHeader';
-import Cookies from 'js-cookie';
-import { useNavigate, useLocation } from 'react-router-dom';
-
+import { useLocation } from 'react-router-dom';
+import { useDrawerState } from './useDrawerState';
+import useHandleLogout from './useHandleLogout';
 
 
 export default function PersistentDrawerLeft() {
     const theme = useTheme();
-    const navigate = useNavigate('');
-    const [open, setOpen] = React.useState(false);
     const location = useLocation();
+    const { open, handleDrawerOpen, handleDrawerClose } = useDrawerState();
+    const handleLogout = useHandleLogout();
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
+    const handleLogoutClick = async () => {
+        handleLogout();
+        handleDrawerClose();
     };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
-
-    const handleLogout = async () => {
-        try {
-            const response = await fetch('/logout', {
-                method: 'POST',
-                headers: {
-                    'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
-                    'Accept': "application/json",
-                    'Referer':'localhost:3000'
-                },
-            });
-    
-            Cookies.remove('laravel_session');
-            Cookies.remove('XSRF-TOKEN');
-
-            handleDrawerClose();
-    
-            navigate('/login');
-         
-        } catch (error) {
-            console.error(error);
-        }
-      };
 
     return (
         <Box sx={{
@@ -70,20 +44,20 @@ export default function PersistentDrawerLeft() {
         }}>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
-            <Toolbar>
-                <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                edge="start"
-                sx={{ mr: 2, ...(open && { display: 'none' }) }}
-                >
-                <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" noWrap component="div">
-                Ri-event
-                </Typography>
-            </Toolbar>
+                <Toolbar>
+                    <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    edge="start"
+                    sx={{ mr: 2, ...(open && { display: 'none' }) }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" noWrap component="div">
+                        Ri-event
+                    </Typography>
+                </Toolbar>
             </AppBar>
             <Drawer
             sx={{
@@ -100,13 +74,13 @@ export default function PersistentDrawerLeft() {
             >
                 <DrawerHeader>
                     <IconButton onClick={handleDrawerClose}>
-                    {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton onClick={() => navigate('/homepage')}>
+                        <ListItemButton>
                             <ListItemIcon>
                                 <HomeIcon />
                             </ListItemIcon>
@@ -114,7 +88,7 @@ export default function PersistentDrawerLeft() {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton onClick={() => navigate('/events')}>
+                        <ListItemButton>
                             <ListItemIcon>
                                 <EventIcon />
                             </ListItemIcon>
@@ -122,7 +96,7 @@ export default function PersistentDrawerLeft() {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton onClick={handleLogout}>
+                        <ListItemButton onClick={handleLogoutClick}>
                             <ListItemIcon>
                                 <LogoutIcon />
                             </ListItemIcon>

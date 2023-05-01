@@ -40,8 +40,7 @@ class UpdateEventTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJson([
-            'message' => 'Updated successfuly',
-            'event' => [
+            'data' => [
                 'title' => $event->title . " Updated",
                 'description' => $event->description
             ]

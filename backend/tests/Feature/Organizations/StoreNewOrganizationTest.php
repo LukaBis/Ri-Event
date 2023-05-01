@@ -35,9 +35,11 @@ class StoreNewOrganizationTest extends TestCase
             'Accept' => 'application/json',
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(201);
         $response->assertJson([
-            'message' => 'Stored successfuly'
+            'data' => [
+                "name" => $orgData["name"]
+            ]
         ]);
         
     }
