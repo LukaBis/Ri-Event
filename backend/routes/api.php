@@ -20,16 +20,11 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/csrf-token', function (Request $request) {
-    return response()->json(['csrfToken' => csrf_token()]);
-}); 
-
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::middleware('auth:sanctum')->group(function() {
+
+    Route::get('/csrf-token', function (Request $request) {
+        return response()->json(['csrfToken' => csrf_token()]);
+    }); 
 
     Route::get('/user', [UserController::class, 'user']); 
 
@@ -42,6 +37,5 @@ Route::middleware('auth:sanctum')->group(function() {
     }
 
     Route::resource('events', EventController::class);
-
     Route::resource('organizations', OrganizationController::class); 
 });
