@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
-import Navbar from '../Navbar';
+import Navbar from './navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
