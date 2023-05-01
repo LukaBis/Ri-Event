@@ -1,1 +1,0 @@
-React app will be in this folder.

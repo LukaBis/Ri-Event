@@ -43,7 +43,7 @@ export default function PersistentDrawerLeft() {
 
     const handleLogout = async () => {
         try {
-            const response = await fetch('http://localhost:8000/logout', {
+            const response = await fetch('/logout', {
                 method: 'POST',
                 headers: {
                     'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),

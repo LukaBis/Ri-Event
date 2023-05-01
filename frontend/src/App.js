@@ -9,7 +9,7 @@ import axios from 'axios';
 import Welcome from './components/Welcome';
 import PersistentDrawerLeft from './components/Drawer/Drawer';
 
-axios.defaults.baseURL = "http://localhost:8000/"
+axios.defaults.baseURL = "http://localhost/"
 axios.defaults.withCredentials = true;
 
 function App() {
