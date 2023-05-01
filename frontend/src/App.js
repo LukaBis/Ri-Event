@@ -6,7 +6,7 @@ import Register from './components/Register';
 import React from "react";
 import {BrowserRouter as Router, Route,Routes} from 'react-router-dom';
 import axios from 'axios';
-import Welcome from './components/Welcome/Welcome';
+import Welcome from './components/Welcome';
 import PersistentDrawerLeft from './components/Drawer/Drawer';
 
 
