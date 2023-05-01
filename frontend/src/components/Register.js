@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+
+import Navbar from './Navbar/Navbar';
+
 import Cookies from 'js-cookie';
-import Navbar from '../Navbar';
+
 import { Typography, Button } from '@mui/material';
 import { makeStyles, styled, useTheme } from '@mui/styles';
 import { TextField } from '@mui/material/';
