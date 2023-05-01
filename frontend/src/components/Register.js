@@ -17,7 +17,9 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+
   axios.defaults.withCredentials = true;
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();

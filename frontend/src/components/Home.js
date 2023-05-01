@@ -41,6 +41,10 @@ const Home = () => {
             sx={{
                 display: 'flex',
                 flexDirection: 'row',
+<<<<<<< HEAD
+=======
+                justifyContent: 'center',
+>>>>>>> ea3376a (fixes #66)
                 p: 1,
                 m: 1,
                 borderRadius: 1,
