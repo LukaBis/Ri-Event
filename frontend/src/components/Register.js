@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, redirect } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from '../Navbar';
+import Navbar from './Navbar/Navbar';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Navbar.css';
 import PropTypes from 'prop-types';
 import {Link,NavLink } from 'react-router-dom';
-import Register from './components/Register';
+import Register from '../Register';
 
 function Navbar() {
   
