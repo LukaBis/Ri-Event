@@ -26,10 +26,7 @@ import Cookies from 'js-cookie';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> ea3376a (fixes #66)
 export default function PersistentDrawerLeft() {
     const theme = useTheme();
     const navigate = useNavigate('');
@@ -46,11 +43,7 @@ export default function PersistentDrawerLeft() {
 
     const handleLogout = async () => {
         try {
-<<<<<<< HEAD
             const response = await fetch('/logout', {
-=======
-            const response = await fetch('http://localhost:8000/logout', {
->>>>>>> ea3376a (fixes #66)
                 method: 'POST',
                 headers: {
                     'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
@@ -59,19 +52,10 @@ export default function PersistentDrawerLeft() {
                 },
             });
     
-<<<<<<< HEAD
-            if (!response.ok) {
-                throw new Error('Logout request failed');
-            }
-    
-            Cookies.remove('laravel_session');
-            Cookies.remove('XSRF-TOKEN');
-=======
             Cookies.remove('laravel_session');
             Cookies.remove('XSRF-TOKEN');
 
             handleDrawerClose();
->>>>>>> ea3376a (fixes #66)
     
             navigate('/login');
          
@@ -122,11 +106,7 @@ export default function PersistentDrawerLeft() {
                 <Divider />
                 <List>
                     <ListItem disablePadding>
-<<<<<<< HEAD
-                        <ListItemButton>
-=======
                         <ListItemButton onClick={() => navigate('/homepage')}>
->>>>>>> ea3376a (fixes #66)
                             <ListItemIcon>
                                 <HomeIcon />
                             </ListItemIcon>
@@ -134,11 +114,7 @@ export default function PersistentDrawerLeft() {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-<<<<<<< HEAD
-                        <ListItemButton>
-=======
                         <ListItemButton onClick={() => navigate('/events')}>
->>>>>>> ea3376a (fixes #66)
                             <ListItemIcon>
                                 <EventIcon />
                             </ListItemIcon>
