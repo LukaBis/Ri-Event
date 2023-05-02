@@ -6,44 +6,12 @@ import Navbar from '../Navbar';
 import { Typography, Button } from '@mui/material';
 import { makeStyles, styled, useTheme } from '@mui/styles';
 import { TextField } from '@mui/material/';
-
-const CustomTextField = styled(TextField)({
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      border: 'none',
-      textAlign: 'center'
-    },
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: '2%',
-    
-  },
-});
-
-const useStyles = makeStyles((theme) => ({
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    maxWidth: 400,
-    margin: '0 auto',
-    marginTop:'2em',
-    marginBottom:'3.5em'
-
-  },
-  textField: {
-    marginBottom: 0,
-    maxHeight: 1400,
-    paddingBottom: 0
-  },
-  submitButton: {
-    margin: 10,
-  },
-}));
+import CustomTextField from '../styles/CustomTextField';
+import useStyles from '../styles/UseStyles';
 
 const Register = () => {
   const classes = useStyles();
- 
+
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -95,12 +63,12 @@ const Register = () => {
           <CustomTextField
             className={classes.textField}
             label="Full Name"
-            variant="outlined"  
+            variant="outlined"
             id="fullName"
             name="fullName"
             value={fullName}
-            onChange={(event) => setFullName(event.target.value)} 
-            marginBottom = {classes.textField}          
+            onChange={(event) => setFullName(event.target.value)}
+            marginbottom={classes.textField}
           />
           <CustomTextField
             className={classes.textField}
@@ -111,7 +79,7 @@ const Register = () => {
             name="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            sx={{ marginBottom: '0px' }}
+            sx={{ marginbottom: '0px' }}
           />
           <CustomTextField
             className={classes.textField}
@@ -138,16 +106,16 @@ const Register = () => {
             type="submit"
             variant="contained"
             color="primary"
-            >
+          >
             Register
-            </Button>
-            </form>
-            <Typography variant="subtitle1" align='center'>
-            Already have an account? <Link to="/login">Log in</Link>
-            </Typography>
-            </div>
-            </>
-            );
-            };
-            
-            export default Register;
+          </Button>
+        </form>
+        <Typography variant="subtitle1" align='center'>
+          Already have an account? <Link to="/login">Log in</Link>
+        </Typography>
+      </div>
+    </>
+  );
+};
+
+export default Register;
