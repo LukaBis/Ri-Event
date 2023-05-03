@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreProfilePictureRequest;
 
 class UserController extends Controller
 {
@@ -20,7 +20,7 @@ class UserController extends Controller
         return asset(auth()->user()->image_path);
     }
 
-    public function uploadPicture(Request $request)
+    public function uploadPicture(StoreProfilePictureRequest $request)
     {
         $user = auth()->user();
         $image = $request->file('image');
@@ -37,7 +37,7 @@ class UserController extends Controller
         $user->save();
 
         return response()->json(['message' => 'Profile picture uploaded successfully']);
-    } 
+    }
 
     //this method deletes user's picture and sets it to default
     public function deletePicture()
