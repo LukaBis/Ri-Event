@@ -82,7 +82,7 @@ export default function PersistentDrawerLeft() {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    <ListItem disablePadding>
+                    <ListItem disablePadding onClick={handleDrawerClose}>
                         <Link to="/" style={styles.drawerLink}>
                             <ListItemButton>
                                 <ListItemIcon>
@@ -92,7 +92,7 @@ export default function PersistentDrawerLeft() {
                             </ListItemButton>
                         </Link>
                     </ListItem>
-                    <ListItem disablePadding>
+                    <ListItem disablePadding onClick={handleDrawerClose}>
                         <ListItemButton>
                             <ListItemIcon>
                                 <EventIcon />
@@ -101,7 +101,7 @@ export default function PersistentDrawerLeft() {
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
-                        <Link to="/profile" style={styles.drawerLink}>
+                        <Link to="/profile" style={styles.drawerLink} onClick={handleDrawerClose}>
                             <ListItemButton>
                                 <ListItemIcon>
                                     <AccountCircleIcon />
