@@ -3,7 +3,7 @@ const styles = {
         '& .MuiInputBase-input': {
             marginBottom: 0,
             boxShadow: 'none',
-            backgroundColor: 'none'
+            backgroundColor: 'transparent' 
         },
         mt: 3
     },
