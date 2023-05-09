@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './Navbar.css';
-import PropTypes from 'prop-types';
-import {Link,NavLink } from 'react-router-dom';
-import Register from '../Register';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   
@@ -24,7 +22,6 @@ function Navbar() {
           </ul>
         </nav>
       </header>
-      
     </div>
   );
 }
