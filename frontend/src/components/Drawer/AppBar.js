@@ -1,10 +1,15 @@
+<<<<<<< HEAD
 import { styled } from '@mui/material/styles';
+=======
+import { styled, useTheme } from '@mui/material/styles';
+>>>>>>> 2df3bba (fixes #51)
 import MuiAppBar from '@mui/material/AppBar';
 import { drawerWidth } from './Main';
 
 export const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 }) (({ theme, open }) => ({
+<<<<<<< HEAD
         transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -16,5 +21,18 @@ export const AppBar = styled(MuiAppBar, {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
+=======
+    transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+    }),
+>>>>>>> 2df3bba (fixes #51)
     }),
 }));

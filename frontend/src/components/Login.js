@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
+
 import Navbar from './Navbar/Navbar';
+import Navbar from '../Navbar';
+
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Button, Typography } from '@mui/material';
@@ -12,6 +15,8 @@ import useStyles from '../styles/UseStyles'
 
 
 async function Login({ onLogin }) {
+
+
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -38,7 +43,8 @@ async function Login({ onLogin }) {
 
 
 
-        navigate('/');
+
+        
         
     } catch (error) {
         console.error(error);
@@ -49,6 +55,7 @@ async function Login({ onLogin }) {
 
 };
       try{
+
             await axios.post('/login', {
                 'password': password,
                 'email': email
@@ -114,6 +121,8 @@ async function Login({ onLogin }) {
             </div>
         </>
     );
+
+
 
 
 export default Login;

@@ -2,7 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+<<<<<<< HEAD
 import Navbar from './components/Navbar/Navbar';
+=======
+import Navbar from './Navbar';
+>>>>>>> 2df3bba (fixes #51)
 import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

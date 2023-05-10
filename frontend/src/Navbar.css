@@ -1,0 +1,149 @@
+body {
+  background-color: #6379f5;
+}
+
+nav {
+  position:sticky;
+  top: 0;
+  width: 100%;
+   /* change this to your preferred color */
+  z-index: 999; /* make sure the navbar is on top of other elements */
+  margin-top: 100;
+}
+.Login-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transition: opacity 0.5s ease-in;
+}
+.Register-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transition: opacity 0.5s ease-in;
+}
+
+form {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  transition: transform 0.5s ease-in;
+}
+
+.Login-div.is-mounted {
+  opacity: 1;
+}
+
+.login-form.is-mounted {
+  transform: none;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #4CAF50;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #f9f9f9;
+  color: #555;
+  font-size: 16px;
+  box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background-color: #3e8e41;
+}
+
+.bottom-text {
+  text-align: center;
+  margin-top: 10px;
+}
+
+a:hover {
+  color: #4CAF50;
+}
+
+
+
+.container {
+	max-width: 500px;
+	margin: 0 auto;
+	background-color: #FFFFFF;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+label {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+input[type="date"] {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	border: none;
+	background-color: #F5F5F5;
+}
+
+input[type="submit"] {
+	display: block;
+	margin: 0 auto;
+	background-color: #4CAF50;
+	color: #FFFFFF;
+	padding: 10px 20px;
+	border-radius: 5px;
+	border: none;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	background-color: #3E8E41;
+}

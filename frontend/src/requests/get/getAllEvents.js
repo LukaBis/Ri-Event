@@ -13,6 +13,10 @@ const getAllEvents = async () => {
             },
         });
         
+<<<<<<< HEAD
+=======
+        console.log(response.data.data);
+>>>>>>> 2df3bba (fixes #51)
         events = response.data.data;
     } catch (error) {
         console.error(error);

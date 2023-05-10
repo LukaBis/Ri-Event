@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ebb8d90 (fixes #51)
 import React from 'react'
 import Navbar from '../Navbar'
 
@@ -13,6 +16,7 @@ const Welcome = () => {
 }
 
 export default Welcome
+<<<<<<< HEAD
 =======
 import React from 'react';
 import Navbar from '../Navbar';
@@ -102,3 +106,5 @@ const Welcome = () => {
 
 export default Welcome;
 >>>>>>> ea3376a (fixes #66)
+=======
+>>>>>>> ebb8d90 (fixes #51)

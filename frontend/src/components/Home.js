@@ -31,7 +31,11 @@ const Home = () => {
   }, []);
 
   return (
+<<<<<<< HEAD
     <div className='Home'>
+=======
+    <div className='Home' >
+>>>>>>> 2df3bba (fixes #51)
         <Box className='heading' sx={{ m: 8 }}>
             <Typography variant='h3'>Hello {user?.name}, Discover Local Events</Typography>
             <Typography variant='paragraph' color={'GrayText'}>Stay up-to-date on the latest happenings and join the city's vibrant community</Typography>
@@ -42,9 +46,15 @@ const Home = () => {
                 display: 'flex',
                 flexDirection: 'row',
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                 justifyContent: 'center',
 >>>>>>> ea3376a (fixes #66)
+=======
+                justifyContent: 'center',
+=======
+>>>>>>> 2df3bba (fixes #51)
+>>>>>>> ebb8d90 (fixes #51)
                 p: 1,
                 m: 1,
                 borderRadius: 1,

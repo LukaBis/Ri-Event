@@ -41,9 +41,7 @@ export default function PersistentDrawerLeft() {
         handleDrawerClose();
     };
 
-    
     return (
-
         <Box sx={{
             display: (location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/homepage') ? 'flex' : 'none',
         }}>
