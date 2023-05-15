@@ -20,18 +20,13 @@ use Laravel\Fortify\Http\Controllers\ProfileInformationController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/csrf-token', function (Request $request) {
-    return response()->json(['csrfToken' => csrf_token()]);
-});
+Route::middleware('auth:sanctum')->group(function() {
 
+    Route::get('/csrf-token', function (Request $request) {
+        return response()->json(['csrfToken' => csrf_token()]);
+    }); 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::middleware('auth:sanctum')->group(function () {
-
-    Route::get('/user', [UserController::class, 'user']);
+    Route::get('/user', [UserController::class, 'user']); 
 
     if (Features::enabled(Features::updateProfileInformation())) {
         Route::put('/user/profile-information', [ProfileInformationController::class, 'update']);
@@ -42,7 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     }
 
     Route::resource('events', EventController::class);
-
+  
     Route::resource('organizations', OrganizationController::class);
 
     Route::get('/profile-picture', [UserController::class, 'showPicture']);
@@ -50,4 +45,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/profile-picture', [UserController::class, 'uploadPicture']);
 
     Route::delete('/profile-picture', [UserController::class, 'deletePicture']);
+
 });
