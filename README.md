@@ -1,3 +1,6 @@
+<img src="Ri-Event.jpeg" alt="Opis slike" width="1000" height="600">
+
+
 # Ri-Event App
 
 ## Introduction
