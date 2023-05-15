@@ -1,5 +1,14 @@
 # Ri-Event App
 
+[![Build](https://github.com/LukaBis/Ri-Event/actions/workflows/nodejs.yml/badge.svg)](https://github.com/LukaBis/Ri-Event/actions/workflows/nodejs.yml)
+[![NPM Version](https://img.shields.io/npm/v/Ri-Event.svg)](https://www.npmjs.com/package/Ri-Event)
+[![NPM Downloads](https://img.shields.io/npm/dt/Ri-Event.svg)](https://www.npmjs.com/package/Ri-Event)
+[![Github Repo Size](https://img.shields.io/github/repo-size/LukaBis/Ri-Event.svg)](https://github.com/LukaBis/Ri-Event)
+[![LICENSE](https://img.shields.io/npm/l/Ri-Event.svg)](https://github.com/LukaBis/Ri-Event/blob/master/LICENSE)
+[![Contributors](https://img.shields.io/github/contributors/LukaBis/Ri-Event.svg)](https://github.com/LukaBis/Ri-Event/graphs/contributors)
+[![Commit](https://img.shields.io/github/last-commit/LukaBis/Ri-Event.svg)](https://github.com/LukaBis/Ri-Event/commits/master)
+
+
 ## Introduction
 
 This app allows you to search for events in Rijeka. Users and organizastions can also create events using this app. You can specify what type of event are you hosting, when it starts, at what location, add some image for your event etc. 
