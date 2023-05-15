@@ -7,7 +7,8 @@
 [![LARAVEL Downloads](https://img.shields.io/badge/Laravel-10.3.3-red)](https://www.npmjs.com/package/Ri-Event)
 [![Github Repo Size](https://img.shields.io/github/repo-size/LukaBis/Ri-Event.svg)](https://github.com/LukaBis/Ri-Event)
 [![Contributors](https://img.shields.io/github/contributors/LukaBis/Ri-Event.svg)](https://github.com/LukaBis/Ri-Event/graphs/contributors)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 
 ## Introduction
 
