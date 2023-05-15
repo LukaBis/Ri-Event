@@ -19,7 +19,8 @@ class UpdateEventRequest extends FormRequest
             'latitude' => ['numeric'],
             'longitude' => ['numeric'],
             'start_time' => ['date_format:H:i'],
-            'date' => ['date']
+            'date' => ['date'],
+            'image' => ['image', 'dimensions:ratio=1/1', 'mimes:jpeg,jpg,png']
         ];
     }
 }

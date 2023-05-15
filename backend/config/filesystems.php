@@ -70,7 +70,8 @@ return [
     */
 
     'links' => [
-        public_path('profile_images') => storage_path('app/public/profile_images'),
+        public_path('event_images') => storage_path('app/public/event_images'),
+        public_path('profile_images') => storage_path('app/public/profile_images')
     ],
 
 ];
