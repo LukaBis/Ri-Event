@@ -31,7 +31,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className='Home' >
+    <div className='Home'>
         <Box className='heading' sx={{ m: 8 }}>
             <Typography variant='h3'>Hello {user?.name}, Discover Local Events</Typography>
             <Typography variant='paragraph' color={'GrayText'}>Stay up-to-date on the latest happenings and join the city's vibrant community</Typography>

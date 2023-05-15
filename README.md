@@ -1,4 +1,14 @@
+<img src="Ri-Event.jpeg" alt="Opis slike" width="1000" height="600">
+
 # Ri-Event App
+
+[![PHP Version](https://img.shields.io/badge/PHP-8.1.12-purple)](https://www.npmjs.com/package/Ri-Event)
+[![NPM Version](https://img.shields.io/badge/npm-8.11.0-blue)](https://www.npmjs.com/package/Ri-Event)
+[![LARAVEL Downloads](https://img.shields.io/badge/Laravel-10.3.3-red)](https://www.npmjs.com/package/Ri-Event)
+[![Github Repo Size](https://img.shields.io/github/repo-size/LukaBis/Ri-Event.svg)](https://github.com/LukaBis/Ri-Event)
+[![Contributors](https://img.shields.io/github/contributors/LukaBis/Ri-Event.svg)](https://github.com/LukaBis/Ri-Event/graphs/contributors)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 
 ## Introduction
 

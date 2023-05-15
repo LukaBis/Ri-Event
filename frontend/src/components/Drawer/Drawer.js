@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,6 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import EventIcon from '@mui/icons-material/Event';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Main } from './Main';
 import { drawerWidth } from './Main';
 import { AppBar } from './AppBar';
@@ -25,6 +27,7 @@ import { DrawerHeader } from './DrawerHeader';
 import { useLocation } from 'react-router-dom';
 import { useDrawerState } from './useDrawerState';
 import useHandleLogout from './useHandleLogout';
+import styles from './styles';
 
 
 export default function PersistentDrawerLeft() {
@@ -79,21 +82,33 @@ export default function PersistentDrawerLeft() {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <HomeIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Home"} />
-                        </ListItemButton>
+                    <ListItem disablePadding onClick={handleDrawerClose}>
+                        <Link to="/" style={styles.drawerLink}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <HomeIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Home"} />
+                            </ListItemButton>
+                        </Link>
                     </ListItem>
-                    <ListItem disablePadding>
+                    <ListItem disablePadding onClick={handleDrawerClose}>
                         <ListItemButton>
                             <ListItemIcon>
                                 <EventIcon />
                             </ListItemIcon>
                             <ListItemText primary={"Events"} />
                         </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <Link to="/profile" style={styles.drawerLink} onClick={handleDrawerClose}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <AccountCircleIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Profile"} />
+                            </ListItemButton>
+                        </Link>
                     </ListItem>
                     <ListItem disablePadding>
                         <ListItemButton onClick={handleLogoutClick}>
