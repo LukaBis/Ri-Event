@@ -47,7 +47,7 @@ const Register = () => {
         }
       );
 
-      //history.push('/');
+      
     } catch (error) {
       console.error(error);
     }

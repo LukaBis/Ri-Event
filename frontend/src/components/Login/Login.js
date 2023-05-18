@@ -7,6 +7,7 @@ import { Button, Typography } from '@mui/material';
 import CustomTextField from '../../styles/CustomTextField.js';
 import useStyles from '../../styles/UseStyles';
 import HandleSubmit from './HandleSubmit';
+import RedirectIfLoggedIn from './RedirectIfLoggedIn';
 
 function Login({ onLogin }) {
   const classes = useStyles();
@@ -15,16 +16,14 @@ function Login({ onLogin }) {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (Cookies.get('laravel_session')) {
-      navigate('/');
-    }
-  }, []);
+  
+  
 
   
 
   return (
     <>
+      <RedirectIfLoggedIn/>
       <Navbar />
 
       <div className={classes.form}>
