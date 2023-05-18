@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Resources\EventCollection;
-use App\Http\Resources\EventResource;
+use \Validator;
 use App\Models\Event;
+use App\Models\Organization;
+use Illuminate\Http\Request;
+use App\Http\Resources\EventResource;
+use App\Http\Resources\EventCollection;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
-use App\Models\Organization;
-use Illuminate\Support\Facades\Log;
-use \Validator;
 
 class EventController extends Controller
 {
@@ -32,7 +32,7 @@ class EventController extends Controller
                 return response()->json(['message' => 'Unauthorized action.'], 403);
             }
         }
-        
+
         $newEvent = Event::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -43,6 +43,15 @@ class EventController extends Controller
             'host_id' => $request->user()->id,
             'organization_id' => $request->organization_id
         ]);
+
+        $image = $request->file('image');
+
+        if ($image) {
+            $filename = time() . '-event' . $newEvent->id . '.' . $image->getClientOriginalExtension();
+            $newEvent->image = Storage::putFileAs('event_images', $image, $filename);
+        }
+
+        $newEvent->save();
 
         return new EventResource($newEvent);
     }
@@ -66,6 +75,17 @@ class EventController extends Controller
         }
         
         $event->fill($request->only(['title', 'description', 'latitude', 'longitude', 'start_time', 'date']));
+        $image = $request->file('image');
+        
+        if ($image) {
+            if ($event->image) {
+                Storage::delete($event->image);
+            }
+            
+            $filename = time() . '-event' . $event->id . '.' . $image->getClientOriginalExtension();
+            $event->image = Storage::putFileAs('event_images', $image, $filename);
+        }
+
         $event->save();
 
         return new EventResource($event);
@@ -79,6 +99,10 @@ class EventController extends Controller
         // if the user is not host of the event then it can't delete the event
         if (!$this->checkIsHostOfEvent($event, $request->user()->id)) {
             return response()->json(['message' => 'Unauthorized action.'], 403);
+        }
+
+        if ($event->image) {
+            Storage::delete($event->image);
         }
 
         $event->delete();

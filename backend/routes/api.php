@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Http\Controllers\ProfileInformationController;
-use Laravel\Fortify\Http\Controllers\PasswordController;
 use Laravel\Fortify\Features;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrganizationController;
-use App\Http\Controllers\UserController;
+use Laravel\Fortify\Http\Controllers\PasswordController;
+use Laravel\Fortify\Http\Controllers\ProfileInformationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +37,13 @@ Route::middleware('auth:sanctum')->group(function() {
     }
 
     Route::resource('events', EventController::class);
-    Route::resource('organizations', OrganizationController::class); 
+  
+    Route::resource('organizations', OrganizationController::class);
+
+    Route::get('/profile-picture', [UserController::class, 'showPicture']);
+
+    Route::put('/profile-picture', [UserController::class, 'uploadPicture']);
+
+    Route::delete('/profile-picture', [UserController::class, 'deletePicture']);
+
 });

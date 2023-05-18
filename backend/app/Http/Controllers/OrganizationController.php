@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use \Validator;
 use App\Models\Organization;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Http\Resources\OrganizationResource;
 use App\Http\Resources\OrganizationCollection;
 use App\Http\Requests\StoreOrganizationRequest;
