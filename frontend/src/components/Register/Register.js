@@ -1,12 +1,8 @@
-
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import Navbar from '../Navbar/Navbar';
 import { Typography, Button } from '@mui/material';
-import { makeStyles, styled, useTheme } from '@mui/styles';
-import { TextField } from '@mui/material/';
 import CustomTextField from '../../styles/CustomTextField.js';
 import useStyles from './useStyles';
 import HandleSubmit from './HandleSubmit';
@@ -20,39 +16,6 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   axios.defaults.withCredentials = true;
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      // Fetch CSRF token
-      const response = await axios.get('http://localhost/sanctum/csrf-cookie', {
-        withCredentials: true,
-      });
-
-      // Submit form data to server
-      await axios.post(
-        '/register',
-        {
-          name: fullName,
-          email: email,
-          password: password,
-          password_confirmation: confirmPassword,
-        },
-        {
-          headers: {
-            'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <>
