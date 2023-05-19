@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BeatLoader } from 'react-spinners';
-import Navbar from './Navbar/Navbar';
+import Navbar from '../Navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Button, Typography } from '@mui/material';
-import CustomTextField from '../styles/CustomTextField.js'
-import useStyles from '../styles/UseStyles'
+import CustomTextField from '../../styles/CustomTextField';
+import useStyles from '../../styles/UseStyles';
 
-
-
-
-function Login({ onLogin }) {
+function Login() {
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate('')
 
     useEffect(() => {
@@ -50,6 +49,8 @@ function Login({ onLogin }) {
             navigate('/');
 
         } catch (error) {
+            setError(true);
+            setErrorMessage('Incorrect email or password.');
             console.error(error);
         } finally {
             setLoading(false);
@@ -76,6 +77,7 @@ function Login({ onLogin }) {
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
                         marginbottom={classes.textField}
+                        error={error}
                     />
                     <CustomTextField
                         className={classes.textField}
@@ -86,6 +88,8 @@ function Login({ onLogin }) {
                         name="password"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
+                        error={error}
+                        helperText={errorMessage}
                     />
                     <Button
                         className={classes.submitButton}
