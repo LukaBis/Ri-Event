@@ -49,7 +49,11 @@ const Home = () => {
         }}>
             
             {events?.map((event, index) => (
-                <EventItem title={event.title} description={event.description} image={randomImages[Math.floor(Math.random() * randomImages.length)]} />
+                <EventItem
+                id={event.id}
+                title={event.title}
+                description={event.description}
+                image={randomImages[Math.floor(Math.random() * randomImages.length)]} />
             ))}
         </Box>
     </div>
