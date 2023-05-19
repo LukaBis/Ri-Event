@@ -16,11 +16,6 @@ function Login({ onLogin }) {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  
-  
-
-  
-
   return (
     <>
       <RedirectIfLoggedIn/>
