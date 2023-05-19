@@ -6,6 +6,7 @@ function checkLoggedIn () {
   if (Cookies.get('XSRF-TOKEN')) {
     return true;
   }
+  
   return false;
 };
 
@@ -13,10 +14,9 @@ function RedirectIfLoggedIn({ }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-   const isLoggedin = checkLoggedIn();
-   if(isLoggedin === true){
-    navigate('/')
-   }
+    if(checkLoggedIn()){
+        navigate('/')
+    }
   }, [navigate]);
 
   return null; 
