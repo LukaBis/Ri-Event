@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../Navbar/Navbar';
 import { Typography, Button } from '@mui/material';
-import CustomTextField from '../../styles/CustomTextField.js';
-import useStyles from './useStyles';
+import CustomTextField from '../../styles/CustomTextField';
+import useStyles from '../../styles/UseStyles';
 import HandleSubmit from './HandleSubmit';
 
 const Register = () => {
