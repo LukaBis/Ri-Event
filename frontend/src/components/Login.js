@@ -90,7 +90,7 @@ function Login({ onLogin }) {
                         id="password"
                         name="password"
                         value={password}
-                        onChange={(event) => setPassword(event.target.value)}
+                        onChange={(event) => setPassword(event.target.value)}7
                         error={error}
                         helperText={errorMessage}
                     />
