@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Cookies from 'js-cookie';
-import Navbar from './Navbar/Navbar';
+import Navbar from '../Navbar/Navbar';
 import { Typography, Button } from '@mui/material';
-import CustomTextField from '../styles/CustomTextField';
-import useStyles from '../styles/UseStyles';
+import CustomTextField from '../../styles/CustomTextField';
+import useStyles from '../../styles/UseStyles';
+import HandleSubmit from './HandleSubmit';
 
 const Register = () => {
   const classes = useStyles();
@@ -17,39 +17,6 @@ const Register = () => {
 
   axios.defaults.withCredentials = true;
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      // Fetch CSRF token
-      const response = await axios.get('http://localhost/sanctum/csrf-cookie', {
-        withCredentials: true,
-      });
-
-      // Submit form data to server
-      await axios.post(
-        '/register',
-        {
-          name: fullName,
-          email: email,
-          password: password,
-          password_confirmation: confirmPassword,
-        },
-        {
-          headers: {
-            'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      //history.push('/');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <>
       <Navbar />
@@ -57,7 +24,10 @@ const Register = () => {
         <Typography variant="h4" gutterBottom align='center' fontFamily='Roboto '>
           Register
         </Typography>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(event) => {
+          event.preventDefault();
+          HandleSubmit(event,fullName,password, email, confirmPassword);
+          }}>
           <CustomTextField
             className={classes.textField}
             label="Full Name"
