@@ -10,8 +10,6 @@ function Event() {
     const [event, setEvent] = useState({});
 
     useEffect(() => {
-        // Function to run when the component mounts
-        console.log('Component mounted');
         getSingleEvent(eventId).then(event => {
             setEvent(event);
         })
