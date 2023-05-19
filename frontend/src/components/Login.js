@@ -9,9 +9,7 @@ import CustomTextField from '../styles/CustomTextField'
 import useStyles from '../styles/UseStyles'
 
 
-
-
-function Login({ onLogin }) {
+function Login() {
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -90,7 +88,7 @@ function Login({ onLogin }) {
                         id="password"
                         name="password"
                         value={password}
-                        onChange={(event) => setPassword(event.target.value)}7
+                        onChange={(event) => setPassword(event.target.value)}
                         error={error}
                         helperText={errorMessage}
                     />

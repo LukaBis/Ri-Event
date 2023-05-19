@@ -1,11 +1,9 @@
-
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import Navbar from './Navbar/Navbar';
 import { Typography, Button } from '@mui/material';
-import { TextField } from '@mui/material/';
 import CustomTextField from '../styles/CustomTextField';
 import useStyles from '../styles/UseStyles';
 
