@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import Navbar from './Navbar/Navbar';
+import Navbar from '../Navbar/Navbar';
 import { Typography, Button } from '@mui/material';
 import { makeStyles, styled, useTheme } from '@mui/styles';
 import { TextField } from '@mui/material/';
-import CustomTextField from '../styles/CustomTextField.js';
-import useStyles from '../styles/UseStyles';
+import CustomTextField from '../../styles/CustomTextField.js';
+import useStyles from './useStyles';
+import HandleSubmit from './HandleSubmit';
 
 const Register = () => {
   const classes = useStyles();
@@ -60,7 +61,10 @@ const Register = () => {
         <Typography variant="h4" gutterBottom align='center' fontFamily='Roboto '>
           Register
         </Typography>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(event) => {
+          event.preventDefault();
+          HandleSubmit(event,fullName,password, email, confirmPassword);
+          }}>
           <CustomTextField
             className={classes.textField}
             label="Full Name"
