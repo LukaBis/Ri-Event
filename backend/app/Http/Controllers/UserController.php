@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function showPicture()
     {
-        return asset(auth()->user()->image_path);
+        return response()->json(['url' => auth()->user()->image_path]);
     }
 
     public function uploadPicture(StoreProfilePictureRequest $request)
