@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import getSingleEvent from '../../requests/get/getSingleEvent';
+import './event.css';
 
 function Event() {
 
@@ -17,25 +18,20 @@ function Event() {
 
     return (
         <>
-            <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="column"
-            >
-                <Box marginBottom={2} marginTop={4}>
+            <Box className='event-container'>
+                <Box marginBottom={2} marginTop={4} className='event-title-container'>
                     <Typography variant="h3">{event?.title}</Typography>
                 </Box>
 
-                <Box marginBottom={2}>
+                <Box marginBottom={2} className='evet-image-container'>
                     <img
                     src="https://media.istockphoto.com/id/868935172/photo/heres-to-tonight.jpg?s=612x612&w=0&k=20&c=v1ceJ9aZwI43rPaQeceEx5L6ODyWFVwqxqpadC2ljG0="
                     alt="Event"
-                    style={{ borderRadius: '5px' }}
+                    className='event-image'
                     />
                 </Box>
 
-                <Box marginBottom={2}>
+                <Box marginBottom={2} className='event-desc-container'>
                     <Typography variant="body1">
                         {event?.description}
                     </Typography>
