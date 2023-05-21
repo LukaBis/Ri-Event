@@ -20,7 +20,7 @@ const uploadProfileImage = async (image) => {
         );
         
         if(response.status == 200) {
-            return response?.message;
+            return response.data;
         }
     } catch (error) {
         throw new Error(error.response.data.message);
