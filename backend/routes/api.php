@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function() {
     }
 
     Route::resource('events', EventController::class);
+    Route::get('myevents', [EventController::class, 'allUserEvents']);
   
     Route::resource('organizations', OrganizationController::class);
 
