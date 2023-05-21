@@ -1,0 +1,33 @@
+.event-form-container {
+    /* background-color: lightblue; */
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 1000px) {
+    .event-form-container {
+        width: 80%;
+    }
+}
+
+
+@media (max-width: 650px) {
+    .event-form-container {
+        width: 95%;
+    }
+}
+
+.event-form-input .MuiInputBase-input {
+    margin-bottom: 0;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.event-date {
+    width: 210px !important;
+    margin-top: 1rem;
+}
+.event-image {
+    width: 250px !important;
+}
