@@ -27,7 +27,8 @@ const createNewEvent = async (
             {
                 headers: {
                     'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
-                    'Accept': "application/json"
+                    'Accept': "application/json",
+                    'Content-Type': 'multipart/form-data',
                 },
             }
         );

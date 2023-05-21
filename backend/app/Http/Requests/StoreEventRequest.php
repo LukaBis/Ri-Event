@@ -20,7 +20,7 @@ class StoreEventRequest extends FormRequest
             'longitude' => ['required', 'numeric'],
             'start_time' => ['required', 'date_format:H:i'],
             'date' => ['required', 'date'],
-            'image' => ['image', 'dimensions:ratio=1/1', 'mimes:jpeg,jpg,png', 'nullable']
+            'image' => ['image', 'mimes:jpeg,jpg,png', 'nullable']
         ];
     }
 }

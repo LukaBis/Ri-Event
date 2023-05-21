@@ -77,7 +77,6 @@ function EventForm() {
             <label style={{ marginTop: '1.5rem' }}>Image: </label>
             <input
                 type="file"
-                value={image}
                 className="event-image"
                 onChange={(e) => setImage(e.target.files[0])}
             />
