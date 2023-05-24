@@ -6,7 +6,7 @@
 [![NPM Version](https://img.shields.io/badge/npm-8.11.0-blue)](https://www.npmjs.com/package/Ri-Event)
 [![LARAVEL Downloads](https://img.shields.io/badge/Laravel-10.3.3-red)](https://www.npmjs.com/package/Ri-Event)
 [![Github Repo Size](https://img.shields.io/github/repo-size/LukaBis/Ri-Event.svg)](https://github.com/LukaBis/Ri-Event)
-[![Contributors](https://img.shields.io/github/contributors/LukaBis/Ri-Event.svg)](https://github.com/LukaBis/Ri-Event/graphs/contributors)
+[![Contributors](https://img.shields.io/github/contributors/LukaBis/Ri-Event.svg?label=Contributors&logo=GitHub&logoColor=white)](https://github.com/LukaBis/Ri-Event/graphs/contributors)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 
