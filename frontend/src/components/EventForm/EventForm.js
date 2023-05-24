@@ -17,11 +17,20 @@ function EventForm() {
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorAlert, setErrorAlert] = useState(null);
 
+    const resetAllFields = () => {
+        setTitle('');
+        setDescription('');
+        setDate('');
+        setTime('');
+        setImage('');
+    }
+
     const handleSubmit = () => {
         setDisabled(true);
         createNewEvent(title, description, date, time, image)
         .then(res => {
             if(res == 'OK') {
+                resetAllFields()
                 setSuccessAlert('Event created successfuly!');
                 setErrorAlert(null);
             }
