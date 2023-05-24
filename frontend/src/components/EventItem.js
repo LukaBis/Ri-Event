@@ -12,7 +12,7 @@ export default function EventItem(props) {
     const navigate = useNavigate('');
 
     return (
-        <Card sx={{ width: 345, m: 1 }}>
+        <Card sx={{ maxWidth: 345, m: 1, display: 'flex', flexDirection: 'column' }}>
             <CardMedia
                 sx={{ height: 140 }}
                 image={props.image}
@@ -26,7 +26,7 @@ export default function EventItem(props) {
                 {props.description}
             </Typography>
             </CardContent>
-            <CardActions>
+            <CardActions sx={{ marginTop: 'auto' }}>
                 <Button size="small">Share</Button>
                 <Button size="small" onClick={() => { navigate(`/event/${props.id}`) }}>
                     Learn More
