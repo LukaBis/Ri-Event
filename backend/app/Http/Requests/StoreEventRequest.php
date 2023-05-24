@@ -19,7 +19,7 @@ class StoreEventRequest extends FormRequest
             'latitude' => ['required', 'numeric'],
             'longitude' => ['required', 'numeric'],
             'start_time' => ['required', 'date_format:H:i'],
-            'date' => ['required', 'date'],
+            'date' => ['required', 'date', 'after_or_equal:today'],
             'image' => ['image', 'mimes:jpeg,jpg,png', 'nullable']
         ];
     }
