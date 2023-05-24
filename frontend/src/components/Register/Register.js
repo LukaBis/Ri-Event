@@ -5,17 +5,53 @@ import Navbar from '../Navbar/Navbar';
 import { Typography, Button } from '@mui/material';
 import CustomTextField from '../../styles/CustomTextField';
 import useStyles from '../../styles/UseStyles';
-import HandleSubmit from './HandleSubmit';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  const classes = useStyles();
 
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  
+  const navigate = useNavigate();
+  const classes = useStyles();
 
-  axios.defaults.withCredentials = true;
+  const handleSubmit = async (event) => {
+
+        event.preventDefault();
+
+        try {
+            // Fetch CSRF token
+            const response = await axios.get('http://localhost/sanctum/csrf-cookie', {
+                withCredentials: true,
+            });
+
+            // Submit form data to server
+            await axios.post(
+                '/register',
+                {
+                    name: fullName,
+                    email: email,
+                    password: password,
+                    password_confirmation: confirmPassword,
+                },
+                {
+                    headers: {
+                    'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            navigate('/');
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
   return (
     <>
@@ -24,10 +60,7 @@ const Register = () => {
         <Typography variant="h4" gutterBottom align='center' fontFamily='Roboto '>
           Register
         </Typography>
-        <form onSubmit={(event) => {
-          event.preventDefault();
-          HandleSubmit(event,fullName,password, email, confirmPassword);
-          }}>
+        <form>
           <CustomTextField
             className={classes.textField}
             label="Full Name"
@@ -74,6 +107,7 @@ const Register = () => {
             type="submit"
             variant="contained"
             color="primary"
+            onClick={handleSubmit}
           >
             Register
           </Button>

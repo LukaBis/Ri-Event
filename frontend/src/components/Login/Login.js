@@ -66,7 +66,7 @@ function Login() {
                 <Typography variant="h4" gutterBottom align='center' fontFamily='Roboto '>
                     Login
                 </Typography>
-                <form onSubmit={handleSubmit}>
+                <form>
                     <CustomTextField
                         className={classes.textField}
                         label="Email"
@@ -96,6 +96,7 @@ function Login() {
                         type="submit"
                         variant="contained"
                         color="primary"
+                        onClick={handleSubmit}
                     >
                         {loading ? <BeatLoader size={10} color={'#ffffff'} /> : 'Log in'}
                     </Button>
