@@ -12,22 +12,26 @@ function EventForm() {
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
     const [image, setImage] = useState("");
+    const [disabled, setDisabled] = useState(false)
 
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorAlert, setErrorAlert] = useState(null);
 
     const handleSubmit = () => {
-        console.log(title, description, date, time, image)
+        setDisabled(true);
         createNewEvent(title, description, date, time, image)
         .then(res => {
             if(res == 'OK') {
                 setSuccessAlert('Event created successfuly!');
                 setErrorAlert(null);
             }
+
+            setDisabled(false);
         })
         .catch(err => {
             setSuccessAlert(false);
             setErrorAlert(err.message);
+            setDisabled(false);
         });
     };
 
@@ -38,6 +42,7 @@ function EventForm() {
                 Create New Event
             </Typography>
             <TextField
+                disabled={disabled}
                 id="standard-basic"
                 label="Title"
                 className="event-form-input"
@@ -48,6 +53,7 @@ function EventForm() {
             />
             <br />
             <TextField
+                disabled={disabled}
                 id="standard-basic"
                 label="Description"
                 className="event-form-input"
@@ -59,6 +65,7 @@ function EventForm() {
             <br />
             <label style={{ marginTop: '2rem' }}>Date: </label>
             <input
+                disabled={disabled}
                 type="date"
                 value={date}
                 className="event-date"
@@ -69,6 +76,7 @@ function EventForm() {
             <br />
             <label style={{ marginTop: '1.5rem' }}>Time: </label>
             <input
+                disabled={disabled}
                 type="time"
                 value={time}
                 className="event-time"
@@ -76,6 +84,7 @@ function EventForm() {
             />
             <label style={{ marginTop: '1.5rem' }}>Image: </label>
             <input
+                disabled={disabled}
                 type="file"
                 className="event-image"
                 onChange={(e) => setImage(e.target.files[0])}
