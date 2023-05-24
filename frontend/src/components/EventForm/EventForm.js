@@ -91,7 +91,7 @@ function EventForm() {
 
             {successAlert ? (
                     <Alert severity="success" sx={{ mt: 4 }}>
-                        Successful update!
+                        Successfully created!
                     </Alert>
                 ) : null}
 
