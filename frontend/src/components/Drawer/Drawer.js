@@ -93,12 +93,14 @@ export default function PersistentDrawerLeft() {
                         </Link>
                     </ListItem>
                     <ListItem disablePadding onClick={handleDrawerClose}>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <EventIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Events"} />
-                        </ListItemButton>
+                        <Link to="/my-events" style={styles.drawerLink}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <EventIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"My Events"} />
+                            </ListItemButton>
+                        </Link>
                     </ListItem>
                     <ListItem disablePadding>
                         <Link to="/profile" style={styles.drawerLink} onClick={handleDrawerClose}>
