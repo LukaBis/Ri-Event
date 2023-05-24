@@ -36,7 +36,10 @@ class UserController extends Controller
         $user->image_path = $path;
         $user->save();
 
-        return response()->json(['message' => 'Profile picture uploaded successfully']);
+        return response()->json([
+            'message' => 'Profile picture uploaded successfully',
+            'image'   => $path,
+        ]);
     }
 
     //this method deletes user's picture and sets it to default
