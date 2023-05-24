@@ -12,7 +12,7 @@ export default function EventItem(props) {
     const navigate = useNavigate('');
 
     return (
-        <Card sx={{ maxWidth: 345, m: 1, display: 'flex', flexDirection: 'column' }}>
+        <Card sx={{ width: 345, m: 1, display: 'flex', flexDirection: 'column' }}>
             <CardMedia
                 sx={{ height: 140 }}
                 image={props.image}
