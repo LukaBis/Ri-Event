@@ -40,31 +40,3 @@ body {
     transform: rotate(360deg);
   }
 }
-
-.Home {
-    flex-direction: column !important;
-    padding-top: 100px;
-    padding: 0px !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    background-color: #e2eef3;
-    min-height: 100vh;
-}
-
-/* For large screens, set width to 70% */
-@media (min-width: 1024px) {
-    .event-list {
-        width: 70%;
-    }
-}
-  
-  /* For small screens, set width to 100% */
-@media (max-width: 767px) {
-    .event-list {
-        width: 100%;
-    }
-}
-
-.heading {
-    text-align: center;
-}

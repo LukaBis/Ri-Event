@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import '../styles/Home.css';
-import getAuthenticatedUser from '../requests/get/getAuthenticatedUser';
+import './home.css';
+import getAuthenticatedUser from '../../requests/get/getAuthenticatedUser';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
-import EventItem from './EventItem';
-import getAllEvents from '../requests/get/getAllEvents';
+import EventItem from '../EventItem';
+import getAllEvents from '../../requests/get/getAllEvents';
+import TextField from '@mui/material/TextField';
 
 const Home = () => {
     const [user, setUser] = useState(null);
@@ -36,18 +37,19 @@ const Home = () => {
             <Typography variant='h3'>Hello {user?.name}, Discover Local Events</Typography>
             <Typography variant='paragraph' color={'GrayText'}>Stay up-to-date on the latest happenings and join the city's vibrant community</Typography>
         </Box>
+        <Box sx={{ backgroundColor: 'white' }} id="global-search">
+            <TextField fullWidth label="Search events" variant="outlined" />
+        </Box>   
         <Box
             className='event-list'
             sx={{
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'center',
-                p: 1,
-                m: 1,
+                mt: 4,
                 borderRadius: 1,
                 flexWrap: 'wrap',
         }}>
-            
             {events?.map((event, index) => (
                 <EventItem
                 id={event.id}
