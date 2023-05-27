@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
+import Button from '@mui/material/Button';
 import getSingleEvent from '../../requests/get/getSingleEvent';
 import './event.css';
 
@@ -54,6 +55,12 @@ function Event() {
                     <b>Event start time: </b> {event?.start_time}
                     </Typography>
                 </Box>
+
+                <Button
+                sx={{ width: '100px' }}
+                variant="outlined">
+                    Attend
+                </Button>
             </Box>
         </>
     )
