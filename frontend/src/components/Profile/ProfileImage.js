@@ -10,13 +10,12 @@ import styles from './styles';
 
 function ProfileImage() {
 
-    let profileImage = useProfileImage();
-    const defaultProfileImage = {url: "profile_images/blank-profile-image.jpg"}
     const [uploadedFile, setUploadedFile] = useState(null);
     const [successAlert, setSuccessAlert] = useState(null);
     const [errorAlert, setErrorAlert] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const [disabled, setDisabled] = useState(false);
+    let profileImage = useProfileImage(successAlert);
 
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
@@ -31,8 +30,6 @@ function ProfileImage() {
                 setErrorAlert(null);
 
                 setUploadedFile(null);
-                
-                profileImage = defaultProfileImage;
             })
             .catch(err => {
                 setErrorAlert(err.message);
