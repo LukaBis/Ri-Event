@@ -46,7 +46,7 @@ const Home = () => {
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'center',
-                mt: 4,
+                mt: 8,
                 borderRadius: 1,
                 flexWrap: 'wrap',
         }}>
