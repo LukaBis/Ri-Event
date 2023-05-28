@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import useProfileImage from './useProfileImage';
@@ -11,6 +11,7 @@ import styles from './styles';
 function ProfileImage() {
 
     let profileImage = useProfileImage();
+    const defaultProfileImage = {url: "profile_images/blank-profile-image.jpg"}
     const [uploadedFile, setUploadedFile] = useState(null);
     const [successAlert, setSuccessAlert] = useState(null);
     const [errorAlert, setErrorAlert] = useState(null);
@@ -30,6 +31,8 @@ function ProfileImage() {
                 setErrorAlert(null);
 
                 setUploadedFile(null);
+                
+                profileImage = defaultProfileImage;
             })
             .catch(err => {
                 setErrorAlert(err.message);
@@ -50,9 +53,6 @@ function ProfileImage() {
             .catch(err => {
                 setErrorAlert(err.message);
                 setSuccessAlert(false);
-            })
-            .finally(() => {
-                document.getElementById('image').value = null;
             })
     };
 
