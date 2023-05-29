@@ -16,7 +16,7 @@ export default function EventItem(props) {
             <CardMedia
                 sx={{ height: 140 }}
                 image={props.image}
-                title="green iguana"
+                title="green iguana"f
             />
             <CardContent>
             <Typography gutterBottom variant="h5" component="div">
