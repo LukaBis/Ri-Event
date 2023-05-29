@@ -12,7 +12,7 @@ import Event from './components/Event/Event';
 import MyEvents from './components/MyEvents/MyEvents';
 import EventForm from './components/EventForm/EventForm';
 
-axios.defaults.baseURL = "http://localhost/"
+axios.defaults.baseURL = "http://localhost:8000/"
 axios.defaults.withCredentials = true;
 
 function App() {

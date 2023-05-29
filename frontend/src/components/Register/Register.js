@@ -14,44 +14,49 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  
+  const [isSubmitting, setIsSubmitting] = useState(false); // Dodana nova varijabla stanja za praćenje statusa submita
+
   const navigate = useNavigate();
   const classes = useStyles();
 
   const handleSubmit = async (event) => {
+    event.preventDefault();
 
-        event.preventDefault();
+    if (isSubmitting) return; // Provjera stanja isSubmitting kako bi se spriječilo duplo slanje zahtjeva
 
-        try {
-            // Fetch CSRF token
-            const response = await axios.get('http://localhost/sanctum/csrf-cookie', {
-                withCredentials: true,
-            });
+    setIsSubmitting(true); // Postavljanje stanja isSubmitting na true prije slanja zahtjeva
 
-            // Submit form data to server
-            await axios.post(
-                '/register',
-                {
-                    name: fullName,
-                    email: email,
-                    password: password,
-                    password_confirmation: confirmPassword,
-                },
-                {
-                    headers: {
-                    'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    },
-                }
-            );
+    try {
+      // Fetch CSRF token
+      const response = await axios.get('/sanctum/csrf-cookie', {
+        withCredentials: true,
+      });
 
-            navigate('/');
-
-        } catch (error) {
-            console.error(error);
+      // Submit form data to server
+      await axios.post(
+        '/register',
+        {
+          name: fullName,
+          email: email,
+          password: password,
+          password_confirmation: confirmPassword,
+        },
+        {
+          headers: {
+            'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
         }
-    };
+      );
+
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false); // Postavljanje stanja isSubmitting na false nakon završetka zahtjeva
+    }
+  };
 
   return (
     <>
@@ -108,6 +113,7 @@ const Register = () => {
             variant="contained"
             color="primary"
             onClick={handleSubmit}
+            disabled={isSubmitting} // Onemogućavanje gumba ako je isSubmitting true
           >
             Register
           </Button>

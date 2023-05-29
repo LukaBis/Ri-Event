@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +10,7 @@ const useHandleLogout = () => {
     return async () => {
 
         try {
-            const response = await fetch('/logout', {
+            /*const response = await fetch('/logout', {
                 method: 'POST',
                 headers: {
                     'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
@@ -20,7 +21,19 @@ const useHandleLogout = () => {
 
             if (!response.ok) {
                 throw new Error('Logout request failed');
-            }
+            }*/
+
+            await axios.post('/logout', {
+            }, {
+                headers: {
+                    'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
+                    'Accept': "application/json",
+                    'Access-Control-Allow-Origin': '*'
+                },
+                withCredentials: true
+            });
+
+            navigate('/');
 
             Cookies.remove('laravel_session');
             Cookies.remove('XSRF-TOKEN');
