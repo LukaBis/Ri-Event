@@ -21,6 +21,6 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: 'Hello'
-          body: 'Hello, asdf!'
+          body: 'Please pull new changes in the main branch due to merges that occured'
           from: 'mplisic@riteh.hr'
-          to: 'mplisic@riteh.hr'
+          to: 'mplisic@riteh.hr, lbiskupic@riteh.hr, ppaunovic@riteh.hr, lbursic@riteh.hr' 
