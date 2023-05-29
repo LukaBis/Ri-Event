@@ -17,6 +17,10 @@ function Event() {
         })
     }, []);
 
+    const handleAttendEvent = () => {
+        console.log("here")
+    }
+
     return (
         <>
             <Box className='event-container'>
@@ -26,9 +30,9 @@ function Event() {
 
                 <Box marginBottom={2} className='evet-image-container'>
                     <img
-                    src="https://media.istockphoto.com/id/868935172/photo/heres-to-tonight.jpg?s=612x612&w=0&k=20&c=v1ceJ9aZwI43rPaQeceEx5L6ODyWFVwqxqpadC2ljG0="
-                    alt="Event"
-                    className='event-image'
+                        src="https://media.istockphoto.com/id/868935172/photo/heres-to-tonight.jpg?s=612x612&w=0&k=20&c=v1ceJ9aZwI43rPaQeceEx5L6ODyWFVwqxqpadC2ljG0="
+                        alt="Event"
+                        className='event-image'
                     />
                 </Box>
 
@@ -40,25 +44,26 @@ function Event() {
 
                 <Box marginBottom={2}>
                     <Typography variant="body1">
-                    <b>Host: </b> {event?.host}
+                        <b>Host: </b> {event?.host}
                     </Typography>
                 </Box>
 
                 <Box marginBottom={2}>
                     <Typography variant="body1">
-                    <b>Event date: </b> {event?.date}
+                        <b>Event date: </b> {event?.date}
                     </Typography>
                 </Box>
 
                 <Box marginBottom={2}>
                     <Typography variant="body1">
-                    <b>Event start time: </b> {event?.start_time}
+                        <b>Event start time: </b> {event?.start_time}
                     </Typography>
                 </Box>
 
                 <Button
-                sx={{ width: '100px' }}
-                variant="outlined">
+                    onClick={handleAttendEvent}
+                    sx={{ width: '100px', mt: 3, mb: 5 }}
+                    variant="outlined">
                     Attend
                 </Button>
             </Box>
