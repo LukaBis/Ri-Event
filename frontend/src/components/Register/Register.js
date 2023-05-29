@@ -1,63 +1,72 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Navbar from '../Navbar/Navbar';
-import { Typography, Button } from '@mui/material';
-import CustomTextField from '../../styles/CustomTextField';
-import useStyles from '../../styles/UseStyles';
-import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import Navbar from "../Navbar/Navbar";
+import { Typography, Button } from "@mui/material";
+import CustomTextField from "../../styles/CustomTextField";
+import useStyles from "../../styles/UseStyles";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // Dodana nova varijabla stanja za praćenje statusa submita
 
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  
   const navigate = useNavigate();
   const classes = useStyles();
 
   const handleSubmit = async (event) => {
+    event.preventDefault();
 
-        event.preventDefault();
+    if (isSubmitting) return; // Provjera stanja isSubmitting kako bi se spriječilo duplo slanje zahtjeva
 
-        try {
-            // Fetch CSRF token
-            const response = await axios.get('http://localhost/sanctum/csrf-cookie', {
-                withCredentials: true,
-            });
+    setIsSubmitting(true); // Postavljanje stanja isSubmitting na true prije slanja zahtjeva
 
-            // Submit form data to server
-            await axios.post(
-                '/register',
-                {
-                    name: fullName,
-                    email: email,
-                    password: password,
-                    password_confirmation: confirmPassword,
-                },
-                {
-                    headers: {
-                    'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    },
-                }
-            );
+    try {
+      // Fetch CSRF token
+      const response = await axios.get("http://localhost/sanctum/csrf-cookie", {
+        withCredentials: true,
+      });
 
-            navigate('/');
-
-        } catch (error) {
-            console.error(error);
+      // Submit form data to server
+      await axios.post(
+        "/register",
+        {
+          name: fullName,
+          email: email,
+          password: password,
+          password_confirmation: confirmPassword,
+        },
+        {
+          headers: {
+            "X-XSRF-TOKEN": Cookies.get("XSRF-TOKEN"),
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
         }
-    };
+      );
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false); // Postavljanje stanja isSubmitting na false nakon završetka zahtjeva
+    }
+  };
 
   return (
     <>
       <Navbar />
       <div className={classes.form}>
-        <Typography variant="h4" gutterBottom align='center' fontFamily='Roboto '>
+        <Typography
+          variant="h4"
+          gutterBottom
+          align="center"
+          fontFamily="Roboto "
+        >
           Register
         </Typography>
         <form>
@@ -80,7 +89,7 @@ const Register = () => {
             name="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            sx={{ marginbottom: '0px' }}
+            sx={{ marginbottom: "0px" }}
           />
           <CustomTextField
             className={classes.textField}
@@ -108,11 +117,12 @@ const Register = () => {
             variant="contained"
             color="primary"
             onClick={handleSubmit}
+            disabled={isSubmitting} // Onemogućavanje gumba ako je isSubmitting true
           >
             Register
           </Button>
         </form>
-        <Typography variant="subtitle1" align='center'>
+        <Typography variant="subtitle1" align="center">
           Already have an account? <Link to="/login">Log in</Link>
         </Typography>
       </div>
