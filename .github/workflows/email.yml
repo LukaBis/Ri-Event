@@ -18,8 +18,8 @@ jobs:
         with:
           server_address: rijeka.riteh.hr
           server_port: 465
-          username: ${{ secrets.mplisic }}
-          password: ${{ secrets.Z9nUxv2P }}
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
           subject: 'Hello'
           body: 'Hello, asdf!'
           from: 'mplisic@riteh.hr'
