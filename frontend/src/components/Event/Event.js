@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
-import Button from '@mui/material/Button';
 import getSingleEvent from '../../requests/get/getSingleEvent';
 import './event.css';
+import userAttendsEvent from '../../requests/post/userAttendsEvent';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import userNotAttendingEvent from '../../requests/delete/userNotAttendingEvent';
 
 function Event() {
 
@@ -17,15 +20,50 @@ function Event() {
         })
     }, []);
 
-    const handleAttendEvent = () => {
-        console.log("here")
+    const attendEvent = () => {
+        userAttendsEvent(eventId)
+        .then(res => {
+            if (res == 'OK') {
+                console.log('success')
+                setEvent({
+                    ...event,
+                    attending: true,
+                });
+            }
+        })
+    }
+
+    const notAttendingEvent = () => {
+        userNotAttendingEvent(eventId)
+        .then(res => {
+            if (res == 'OK') {
+                console.log('success')
+                setEvent({
+                    ...event,
+                    attending: false,
+                });
+            }
+        })
+    }
+
+    const handleChangeAttending = () => {
+        if (event.attending === false) {
+            attendEvent();
+        }
+
+        if (event.attending === true) {
+            notAttendingEvent();
+        }
     }
 
     return (
         <>
             <Box className='event-container'>
-                <Box marginBottom={2} marginTop={4} className='event-title-container'>
+                <Box marginBottom={2} marginTop={3} className='event-title-container'>
                     <Typography variant="h3">{event?.title}</Typography>
+                    <p variant="paragraph" style={{ color: 'grey' }}>
+                        Number of guests: <b>{event?.number_of_guests}</b>
+                    </p>
                 </Box>
 
                 <Box marginBottom={2} className='evet-image-container'>
@@ -60,12 +98,7 @@ function Event() {
                     </Typography>
                 </Box>
 
-                <Button
-                    onClick={handleAttendEvent}
-                    sx={{ width: '100px', mt: 3, mb: 5 }}
-                    variant="outlined">
-                    Attend
-                </Button>
+                <FormControlLabel control={<Switch checked={event?.attending} onChange={handleChangeAttending} />} label={event?.attending ? "Going" : "Not going"} />
             </Box>
         </>
     )
