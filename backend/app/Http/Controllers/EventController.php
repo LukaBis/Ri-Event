@@ -11,6 +11,7 @@ use App\Http\Resources\EventCollection;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use App\Http\Requests\UserAttendsEventRequest;
 
 class EventController extends Controller
 {
@@ -132,5 +133,25 @@ class EventController extends Controller
         }
 
         return false;
+    }
+
+    public function attendEvent(UserAttendsEventRequest $request)
+    {
+        $event = Event::find($request->event_id);
+        $request->user()->attendingEvents()->save($event);
+
+        return response()->json([
+            'message' => 'Stored successfully!',
+        ], 201);
+    }
+
+    public function notAttendingEvent(UserAttendsEventRequest $request)
+    {
+        $event = Event::find($request->event_id);
+        $request->user()->attendingEvents()->detach($event);
+
+        return response()->json([
+            'message' => 'Removed successfully!',
+        ], 200);
     }
 }
