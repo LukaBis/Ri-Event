@@ -11,6 +11,7 @@ import Profile from './components/Profile/Profile';
 import Event from './components/Event/Event';
 import MyEvents from './components/MyEvents/MyEvents';
 import EventForm from './components/EventForm/EventForm';
+import EventEditForm from './components/EventEditForm/EventEditForm';
 
 axios.defaults.baseURL = "http://localhost/"
 axios.defaults.withCredentials = true;
@@ -30,6 +31,7 @@ function App() {
                 <Route exact path ="/my-events" element={<MyEvents/>}> </Route>
                 <Route exact path ="/create/event" element={<EventForm/>}> </Route>
                 <Route path="/event/:eventId" element={<Event />} />
+                <Route path="/event-edit/:eventId" element={<EventEditForm/>}> </Route>
             </Routes>
         </Router>
     </div>
