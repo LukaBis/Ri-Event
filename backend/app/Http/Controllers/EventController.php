@@ -11,6 +11,7 @@ use App\Http\Resources\EventCollection;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use App\Http\Requests\UserAttendsEventRequest;
 
 class EventController extends Controller
 {
@@ -45,6 +46,7 @@ class EventController extends Controller
             'description' => $request->description,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
+            'address' => $request->address,
             'start_time' => $request->start_time,
             'date' => $request->date,
             'host_id' => $request->user()->id,
@@ -81,7 +83,7 @@ class EventController extends Controller
             return response()->json(['message' => 'Unauthorized action.'], 403);
         }
         
-        $event->fill($request->only(['title', 'description', 'latitude', 'longitude', 'start_time', 'date']));
+        $event->fill($request->only(['title', 'description', 'latitude', 'longitude', 'address', 'start_time', 'date']));
         $image = $request->file('image');
         
         if ($image) {
@@ -132,5 +134,25 @@ class EventController extends Controller
         }
 
         return false;
+    }
+
+    public function attendEvent(UserAttendsEventRequest $request)
+    {
+        $event = Event::find($request->event_id);
+        $request->user()->attendingEvents()->save($event);
+
+        return response()->json([
+            'message' => 'Stored successfully!',
+        ], 201);
+    }
+
+    public function notAttendingEvent(UserAttendsEventRequest $request)
+    {
+        $event = Event::find($request->event_id);
+        $request->user()->attendingEvents()->detach($event);
+
+        return response()->json([
+            'message' => 'Removed successfully!',
+        ], 200);
     }
 }
