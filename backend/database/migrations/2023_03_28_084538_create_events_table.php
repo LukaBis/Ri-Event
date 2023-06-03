@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->integer('latitude');
             $table->integer('longitude');
+            $table->string('address');
             $table->time('start_time');
             $table->date('date');
             $table->string('image')->nullable();
