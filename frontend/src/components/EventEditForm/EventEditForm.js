@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
+import { Box, Input, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import './style.css';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import updateEvent from '../../requests/put/updateEvent'
 
 function EventEditForm() {
   const location = useLocation();
@@ -32,7 +33,9 @@ function EventEditForm() {
         setDate(data.data.date);
         console.log(data.data)
         setTime(data.data.start_time);
-        //setImage(data.data.image);
+        //setImage(data.data)
+        setImage(data.data.image)
+
       })
       .catch(error => {
         console.error('Error fetching event data:', error);
@@ -44,21 +47,31 @@ function EventEditForm() {
     // Perform update event logic here
 
     // Example code
-    // updateEvent(id, title, description, date, time, image)
-    //   .then(res => {
-    //     if (res === 'OK') {
-    //       setSuccessAlert('Event updated successfully!');
-    //       setErrorAlert(null);
-    //     }
+    console.log(typeof (image));
+    updateEvent(id, title, description, date, time, image)
+      .then(res => {
+        if (res === 'OK') {
+          setSuccessAlert('Event updated successfully!');
+          setErrorAlert(null);
+        }
 
-    //     setDisabled(false);
-    //   })
-    //   .catch(err => {
-    //     setSuccessAlert(false);
-    //     setErrorAlert(err.message);
-    //     setDisabled(false);
-    //   });
+
+        setDisabled(false);
+      })
+      .catch(err => {
+        setSuccessAlert(false);
+        setErrorAlert(err.message);
+        setDisabled(false);
+      });
   };
+
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setImage(e.target.files[0]);
+      console.log(image)
+    }
+  };
+
 
   return (
     <>
@@ -109,20 +122,33 @@ function EventEditForm() {
           value={time}
           onChange={e => setTime(e.target.value)}
         />
-        <br/>
-        <TextField
+        <br />
+        {(typeof (image) === 'string') && (
+          <div>
+            <img src={`http://localhost/${image}`} width={300} height={300} />
+          </div>
+        )}
+
+        {(typeof (image) !== 'string') && (
+          <div>
+            <img src={URL.createObjectURL(image)} width={300} height={300} />
+          </div>
+        )}
+
+        <Input
           disabled={disabled}
+          src={image}
           type='file'
           id="standard-basic"
           label="Image"
           className="event-form-input"
           sx={{ mt: 3 }}
           variant="standard"
-          value={image}
-          onChange={e => setImage(e.target.value)}
+          inputProps={{ accept: 'image/*' }} // Optional: Limit accepted file types to images
+          onChange={handleImageChange}
         />
 
-        
+
         <br />
         <Button
           variant="contained"
