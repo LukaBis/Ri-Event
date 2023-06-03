@@ -29,8 +29,9 @@ class StoreNewEventTest extends TestCase
         $eventData["description"] = "This is new event's description.";
         $eventData["latitude"] = 55;
         $eventData["longitude"] = 54;
+        $eventData["address"] = "My New Address";
         $eventData["start_time"] = '10:30';
-        $eventData["date"] = '2023-05-10';
+        $eventData["date"] = '2023-06-10';
 
         $response = $this->post('/api/events', $eventData, [
             'X-XSRF-TOKEN' => $csrfToken,
@@ -61,9 +62,10 @@ class StoreNewEventTest extends TestCase
         $eventData["description"] = "This is new event's description.";
         $eventData["latitude"] = 55;
         $eventData["longitude"] = 54;
+        $eventData["address"] = "My New Address";
         $eventData["organization_id"] = $organization->id;
         $eventData["start_time"] = "22:00";
-        $eventData["date"] = "2023-05-01";
+        $eventData["date"] = "2023-06-10";
 
         $response = $this->post('/api/events', $eventData, [
             'X-XSRF-TOKEN' => $csrfToken,
@@ -100,9 +102,10 @@ class StoreNewEventTest extends TestCase
         $eventData["description"] = "This is new event's description.";
         $eventData["latitude"] = 55;
         $eventData["longitude"] = 54;
+        $eventData["address"] = "My New Address";
         $eventData["organization_id"] = $someoneElsesOrganization->id;
         $eventData["start_time"] = "22:00";
-        $eventData["date"] = "2023-05-01";
+        $eventData["date"] = "2023-06-10";
 
         $response = $this->post('/api/events', $eventData, [
             'X-XSRF-TOKEN' => $csrfToken,
@@ -133,6 +136,7 @@ class StoreNewEventTest extends TestCase
         $eventData["description"] = null;
         $eventData["latitude"] = "something";
         $eventData["longitude"] = 54;
+        $eventData["address"] = null;
         $eventData["start_time"] = null;
         $eventData["date"] = null;
 
@@ -144,13 +148,16 @@ class StoreNewEventTest extends TestCase
 
         $response->assertStatus(422)
          ->assertJson([
-            'message' => 'The description field is required. (and 3 more errors)',
+            'message' => 'The description field is required. (and 4 more errors)',
             'errors' => [
                 'description' => [
                     'The description field is required.'
                 ],
                 'latitude' => [
                     'The latitude field must be a number.'
+                ],
+                "address" => [
+                    "The address field is required."
                 ],
                 'start_time' => [
                     'The start time field is required.'
@@ -179,8 +186,9 @@ class StoreNewEventTest extends TestCase
         $eventData["description"] = "This is new event's description.";
         $eventData["latitude"] = 55;
         $eventData["longitude"] = 54;
+        $eventData["address"] = "My New Address";
         $eventData["start_time"] = '10:30';
-        $eventData["date"] = '2023-05-10';
+        $eventData["date"] = '2023-06-10';
 
         $response = $this->post('/api/events', $eventData, [
             'Referer' => 'localhost:3000',

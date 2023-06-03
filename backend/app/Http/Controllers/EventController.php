@@ -46,6 +46,7 @@ class EventController extends Controller
             'description' => $request->description,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
+            'address' => $request->address,
             'start_time' => $request->start_time,
             'date' => $request->date,
             'host_id' => $request->user()->id,
@@ -82,7 +83,7 @@ class EventController extends Controller
             return response()->json(['message' => 'Unauthorized action.'], 403);
         }
         
-        $event->fill($request->only(['title', 'description', 'latitude', 'longitude', 'start_time', 'date']));
+        $event->fill($request->only(['title', 'description', 'latitude', 'longitude', 'address', 'start_time', 'date']));
         $image = $request->file('image');
         
         if ($image) {

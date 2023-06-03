@@ -18,6 +18,7 @@ class UpdateEventRequest extends FormRequest
             'description' => ['min:20'],
             'latitude' => ['numeric'],
             'longitude' => ['numeric'],
+            'address' => ['min:3'],
             'start_time' => ['date_format:H:i'],
             'date' => ['date', 'after_or_equal:today'],
             'image' => ['image', 'dimensions:ratio=1/1', 'mimes:jpeg,jpg,png']
