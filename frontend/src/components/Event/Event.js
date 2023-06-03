@@ -112,6 +112,12 @@ function Event() {
 
         <Box marginBottom={2}>
           <Typography variant="body1">
+            <b>Address: </b> {event?.address}
+          </Typography>
+        </Box>
+
+        <Box marginBottom={2}>
+          <Typography variant="body1">
             <b>Event date: </b> {event?.date}
           </Typography>
         </Box>
