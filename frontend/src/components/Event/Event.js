@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import getSingleEvent from '../../requests/get/getSingleEvent';
 import './event.css';
+import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 import userAttendsEvent from '../../requests/post/userAttendsEvent';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
@@ -13,12 +14,28 @@ function Event() {
 
     const { eventId } = useParams();
     const [event, setEvent] = useState({});
+    const [center, setCenter] = useState(null);
+
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+    });
 
     useEffect(() => {
         getSingleEvent(eventId).then(event => {
             setEvent(event);
+
+            setCenter({lat: event.latitude, lng: event.longitude})
         })
     }, []);
+
+    function Map() {
+        return <GoogleMap 
+            zoom={13} 
+            center={center} 
+            mapContainerClassName='map-container'>
+                <MarkerF position={center}/>
+        </GoogleMap>
+    }
 
     const attendEvent = () => {
         userAttendsEvent(eventId)
@@ -98,9 +115,17 @@ function Event() {
                     </Typography>
                 </Box>
 
+                <Box marginBottom={2}>
+                    <Typography variant="body1">
+                        <b>Event location: </b>
+                            {!isLoaded ? <>Loading...</> : <Map/>}
+                    </Typography>
+                </Box>
+
                 <FormControlLabel control={<Switch checked={event?.attending} onChange={handleChangeAttending} />} label={event?.attending ? "Going" : "Not going"} />
+
             </Box>
-        </>
+        </> 
     )
 }
 
