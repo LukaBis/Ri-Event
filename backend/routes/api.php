@@ -37,7 +37,9 @@ Route::middleware('auth:sanctum')->group(function() {
     }
 
     Route::resource('events', EventController::class);
+    
     Route::get('myevents', [EventController::class, 'allUserEvents']);
+    Route::get('attending', [EventController::class, 'allUserEventsAttending']);
     Route::resource('organizations', OrganizationController::class);
     Route::get('/profile-picture', [UserController::class, 'showPicture']);
     Route::put('/profile-picture', [UserController::class, 'uploadPicture']);

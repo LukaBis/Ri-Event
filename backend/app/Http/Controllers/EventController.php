@@ -29,6 +29,13 @@ class EventController extends Controller
         return new EventCollection($events);
     }
 
+    public function allUserEventsAttending(Request $request)
+    {
+        $events = $request->user()->attendingEvents()->get();
+
+        return new EventCollection($events);
+    }
+
     public function store(StoreEventRequest $request)
     {
         // check if that organization belongs to the user that made the request
