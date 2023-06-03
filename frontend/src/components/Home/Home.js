@@ -13,6 +13,8 @@ const Home = () => {
     const [user, setUser] = useState(null);
     const [events, setEvents] = useState(null);
     const navigate = useNavigate('');
+    const [search, setSearch] = useState(''); 
+
     // remove this later
     const randomImages = [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDmF-fhAYNe-fF9ecwqRWJ2DFm5_RRUM_aez1qo7ZHOeM42AcBwSjlDLmEmcZe_xkuEK0&usqp=CAU',
@@ -21,15 +23,24 @@ const Home = () => {
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrH6UmvKbkjxQhHqut5ZHvdl7C4gf1ILW4VQ&usqp=CAU',
     ];
 
-  useEffect(() => {
-    if (!Cookies.get('XSRF-TOKEN')) {
-        navigate('/login');
+    useEffect(() => {
+        if (!Cookies.get('XSRF-TOKEN')) {
+            navigate('/login');
+        }
+
+        // get authenticated user
+        getAuthenticatedUser().then(user => setUser(user));
+        getAllEvents().then(events => setEvents(events));
+    }, []);
+
+    const handleSearch = (e) => {
+        setSearch(e.target.value);
     }
 
-    // get authenticated user
-    getAuthenticatedUser().then(user => setUser(user));
-    getAllEvents().then(events => setEvents(events));
-  }, []);
+    // this function is used to filter events based on user search 
+    const filter = event => {
+        return event.title.includes(search) || event.description.includes(search);
+    }
 
   return (
     <div className='Home'>
@@ -38,7 +49,7 @@ const Home = () => {
             <Typography variant='paragraph' color={'GrayText'}>Stay up-to-date on the latest happenings and join the city's vibrant community</Typography>
         </Box>
         <Box sx={{ backgroundColor: 'white' }} id="global-search">
-            <TextField fullWidth label="Search events" variant="outlined" />
+            <TextField fullWidth label="Search events" variant="outlined" value={search} onChange={handleSearch} />
         </Box>   
         <Box
             className='event-list'
@@ -50,13 +61,16 @@ const Home = () => {
                 borderRadius: 1,
                 flexWrap: 'wrap',
         }}>
-            {events?.map((event, index) => (
-                <EventItem
-                id={event.id}
-                title={event.title}
-                description={event.description}
-                image={randomImages[Math.floor(Math.random() * randomImages.length)]} />
-            ))}
+            {events?.filter(filter)
+                    ?.map((event, index) => (
+                        <EventItem
+                            id={event.id}
+                            key={event.id}
+                            title={event.title}
+                            description={event.description}
+                            image={randomImages[Math.floor(Math.random() * randomImages.length)]} />
+                        ))
+            }
         </Box>
     </div>
   );
