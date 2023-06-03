@@ -9,14 +9,20 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import getAllUserEvents from '../../requests/get/getAllUserEvents';
 import { Link } from 'react-router-dom';
+import getAllEventsUserAttends from '../../requests/get/getAllEventsUserAttends';
 
-export default function EventsTable() {
-  const [events, setEvents] = useState(null);
+export default function EventsTable(props) {
+  const [hostedEvents, setHostedEvents] = useState(null);
+  const [attendingEvents, setAttendingEvents] = useState(null);
 
   useEffect(() => {
     getAllUserEvents().then(events => {
-      setEvents(events);
+        setHostedEvents(events);
     });
+
+    getAllEventsUserAttends().then(events => {
+        setAttendingEvents(events);
+    })
   }, []);
 
   return (
@@ -28,11 +34,15 @@ export default function EventsTable() {
             <TableCell align="right">Start time</TableCell>
             <TableCell align="right">Date</TableCell>
             <TableCell align="right">Host</TableCell>
-            <TableCell align="right">Edit</TableCell>
+            {(props.type === 'hosting') ? (
+                <TableCell align="right">Edit</TableCell>
+            ) : (
+                <TableCell align="right">Link</TableCell>
+            )}
           </TableRow>
         </TableHead>
         <TableBody>
-          {events?.map(row => (
+          {(props.type === 'hosting') && hostedEvents?.map(row => (
             <TableRow
               key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -46,6 +56,25 @@ export default function EventsTable() {
               <TableCell align="right">
                 <Button variant="text" component={Link} to={`/event-edit/${row.id}`}>
                   Edit
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+
+        {(props.type === 'attending') && attendingEvents?.map(row => (
+            <TableRow
+              key={row.id}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.title}
+              </TableCell>
+              <TableCell align="right">{row.start_time}</TableCell>
+              <TableCell align="right">{row.date}</TableCell>
+              <TableCell align="right">{row.host}</TableCell>
+              <TableCell align="right">
+                <Button variant="text" component={Link} to={`/event/${row.id}`}>
+                    View Event
                 </Button>
               </TableCell>
             </TableRow>
