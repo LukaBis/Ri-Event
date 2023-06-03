@@ -129,7 +129,7 @@ function EventEditForm() {
           </div>
         )}
 
-        {(typeof (image) !== 'string') && (
+        {(typeof (image) !== 'string' && image !== null) && (
           <div>
             <img src={URL.createObjectURL(image)} width={300} height={300} />
           </div>
