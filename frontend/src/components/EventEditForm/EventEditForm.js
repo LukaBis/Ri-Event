@@ -7,6 +7,7 @@ import Alert from '@mui/material/Alert';
 import './style.css';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import updateEvent from '../../requests/put/updateEvent'
 
 function EventEditForm() {
   const location = useLocation();
@@ -32,7 +33,8 @@ function EventEditForm() {
         setDate(data.data.date);
         console.log(data.data)
         setTime(data.data.start_time);
-        //setImage(data.data.image);
+        //setImage(data.data)
+        setImage(data.data.image);
       })
       .catch(error => {
         console.error('Error fetching event data:', error);
@@ -44,21 +46,30 @@ function EventEditForm() {
     // Perform update event logic here
 
     // Example code
-    // updateEvent(id, title, description, date, time, image)
-    //   .then(res => {
-    //     if (res === 'OK') {
-    //       setSuccessAlert('Event updated successfully!');
-    //       setErrorAlert(null);
-    //     }
+    console.log(typeof(image));
+     updateEvent(id, title, description, date, time, image)
+      .then(res => {
+        if (res === 'OK') {
+         setSuccessAlert('Event updated successfully!');
+          setErrorAlert(null);
+         }
+      
 
-    //     setDisabled(false);
-    //   })
-    //   .catch(err => {
-    //     setSuccessAlert(false);
-    //     setErrorAlert(err.message);
-    //     setDisabled(false);
-    //   });
+        setDisabled(false);
+      })
+       .catch(err => {
+         setSuccessAlert(false);
+         setErrorAlert(err.message);
+         setDisabled(false);
+       });
   };
+
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setImage(e.target.files[0]);
+    }
+  };
+
 
   return (
     <>
@@ -111,16 +122,16 @@ function EventEditForm() {
         />
         <br/>
         <TextField
-          disabled={disabled}
-          type='file'
-          id="standard-basic"
-          label="Image"
-          className="event-form-input"
-          sx={{ mt: 3 }}
-          variant="standard"
-          value={image}
-          onChange={e => setImage(e.target.value)}
-        />
+      disabled={disabled}
+      type='file'
+      id="standard-basic"
+      label="Image"
+      className="event-form-input"
+      sx={{ mt: 3 }}
+      variant="standard"
+      inputProps={{ accept: 'image/*' }} // Optional: Limit accepted file types to images
+      onChange={handleImageChange}
+    />
 
         
         <br />
