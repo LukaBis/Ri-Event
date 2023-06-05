@@ -1,32 +1,46 @@
-name: Build and Test
+name: Tests (PHP)
 
-on:
-  push:
-    branches:
-      - main
-      - development
-  pull_request:
-    branches:
-      - main
-      - development
+on: [push]
 
 jobs:
-  build-and-test:
+  tests:
+    name: Run tests
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v1
 
-      - name: Set up Docker environment
-        uses: docker/setup-buildx-action@v1
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
 
-      - name: Build and run using Sail
-        working-directory: ./backend
+      - name: Run composer install
+        run: composer install -n --prefer-dist
+        env:
+          APP_ENV: testing
+
+      - name: Prepare Laravel Application
         run: |
-          php artisan serve
+          cp .env.example .env
+          php artisan key:generate
+      - name: Cache yarn dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: yarn-${{ hashFiles('yarn.lock') }}
+
+      - name: Run yarn
+        run: yarn && yarn dev
 
       - name: Run tests
-        working-directory: ./backend
-        run: |
-          php artisan test
+        run: ./vendor/bin/phpunit
+        env:
+          APP_ENV: testing
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: Logs
+          path: ./storage/logs
