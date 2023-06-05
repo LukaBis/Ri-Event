@@ -34,12 +34,12 @@ const Home = () => {
     }, []);
 
     const handleSearch = (e) => {
-        setSearch(e.target.value);
+        setSearch(e.target.value.toLowerCase());
     }
 
     // this function is used to filter events based on user search 
     const filter = event => {
-        return event.title.includes(search) || event.description.includes(search);
+        return event.title.toLowerCase().includes(search) || event.description.toLowerCase().includes(search);
     }
 
   return (
