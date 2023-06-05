@@ -12,7 +12,7 @@ jobs:
     
 
       - name: Run composer install
-        run: composer install -n --prefer-dist
+        run: composer install 
         working-directory: backend
 
       - name: Prepare Laravel Application
