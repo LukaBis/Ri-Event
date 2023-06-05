@@ -27,12 +27,7 @@ jobs:
       
       - name: Test Database Connection
         run: |
-          if nc -zv -w 3 localhost 5432; then
-            echo "Connection test succeeded"
-          else
-            echo "Connection test failed"
-            exit 1
-          fi
+         systemctl status postgresql
           
           
       - name: seed database
