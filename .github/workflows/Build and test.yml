@@ -25,7 +25,10 @@ jobs:
         working-directory: ./backend
         run: |
           php artisan serve
-
+      - name: Test Database Connection
+        run: |
+          nc -zv localhost 5432
+          
       - name: Run tests
         working-directory: ./backend
         run: |
