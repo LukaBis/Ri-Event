@@ -27,7 +27,7 @@ jobs:
       - name: Wait for server to be ready
         run: |
           sleep 10
-          while ! nc -z localhost 80; do sleep 1; done
+          while ! nc -z localhost 5432; do sleep 1; done
         working-directory: backend
 
       - name: Seed database
