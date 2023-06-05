@@ -27,16 +27,6 @@ jobs:
           php artisan key:generate
         working-directory: backend
 
-      - name: Cache yarn dependencies
-        uses: actions/cache@v1
-        with:
-          path: backend/node_modules
-          key: yarn-${{ hashFiles('backend/yarn.lock') }}
-
-      - name: Run yarn
-        run: yarn && yarn dev
-        working-directory: backend
-
       - name: Run tests
         run: ./vendor/bin/phpunit
         env:
