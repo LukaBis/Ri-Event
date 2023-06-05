@@ -27,7 +27,12 @@ jobs:
       
       - name: Test Database Connection
         run: |
-          nc -zv -w 3 localhost 5432 || exit 1
+          if nc -zv -w 3 localhost 5432; then
+            echo "Connection test succeeded"
+          else
+            echo "Connection test failed"
+            exit 1
+          fi
           
           
       - name: seed database
