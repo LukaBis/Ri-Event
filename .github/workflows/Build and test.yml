@@ -25,6 +25,11 @@ jobs:
           php artisan key:generate
         working-directory: backend
       
+      - name: Test Database Connection
+        run: |
+          nc -zv localhost 5432 || exit 1
+          
+          
       - name: seed database
         run: php artisan migrate
         working-directory: backend
