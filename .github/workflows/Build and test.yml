@@ -17,8 +17,6 @@ jobs:
 
       - name: Run composer install
         run: composer install -n --prefer-dist
-        env:
-          APP_ENV: testing
         working-directory: backend
 
       - name: Prepare Laravel Application
