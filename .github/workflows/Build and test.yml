@@ -31,7 +31,7 @@ jobs:
         
         
       - name: seed database
-        run: php artisan migrate
+        run: ./vendor/bin/sail up
         working-directory: backend
 
       - name: Run tests
