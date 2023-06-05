@@ -15,6 +15,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Test Database Connection
+        working-directory: ./backend
+        run: nc -zv localhost 5432
+
+
       - name: Checkout code
         uses: actions/checkout@v2
 
