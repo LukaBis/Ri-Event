@@ -26,7 +26,7 @@ jobs:
         working-directory: backend
         
       - name: start artisan
-        run: php artisan serve
+        run: docker compose up
         working-directory: backend
         
         
