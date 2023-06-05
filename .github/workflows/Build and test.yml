@@ -27,7 +27,9 @@ jobs:
         
       - name: start artisan
         run: php artisan serve
-          
+        working-directory: backend
+        
+        
       - name: seed database
         run: php artisan migrate
         working-directory: backend
