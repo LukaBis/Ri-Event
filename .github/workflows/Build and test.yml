@@ -22,7 +22,8 @@ jobs:
       - name: Start server in the background
         run: |
           ./vendor/bin/sail up -d
-          sleep 10
+          sleep 60
+          timeout 1m ./vendor/bin/sail down
         working-directory: backend
 
       - name: Seed database
