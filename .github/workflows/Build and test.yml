@@ -9,11 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Cache composer dependencies
-        uses: actions/cache@v1
-        with:
-          path: backend/vendor
-          key: composer-${{ hashFiles('backend/composer.lock') }}
+    
 
       - name: Run composer install
         run: composer install -n --prefer-dist
