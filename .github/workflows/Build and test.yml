@@ -24,11 +24,9 @@ jobs:
           cp .env.example .env
           php artisan key:generate
         working-directory: backend
-      
-      - name: Test Database Connection
-        run: |
-         systemctl status postgresql
-          
+        
+      - name: start artisan
+        run: php artisan serve
           
       - name: seed database
         run: php artisan migrate
