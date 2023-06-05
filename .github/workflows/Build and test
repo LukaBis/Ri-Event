@@ -24,7 +24,7 @@ jobs:
       - name: Build and run using Sail
         working-directory: ./backend
         run: |
-          php artisan serve
+          docker compose up
 
       - name: Run tests
         working-directory: ./backend
