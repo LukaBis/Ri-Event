@@ -25,6 +25,10 @@ jobs:
       - name: seed database
         run: ./vendor/bin/sail up -d
         working-directory: backend
+        
+      - name: seed for real
+        run: php artisan db::seed
+        working-directory: backend
 
       - name: Run tests
         run: php artisan test
