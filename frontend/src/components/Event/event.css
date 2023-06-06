@@ -58,6 +58,20 @@
         height: 70vh;
     }
 }
+
+.event-address-time-mobile {
+    display: none;
+}
+
+@media (max-width: 1440px) {
+    .event-address-time {
+        display: none;
+    }
+
+    .event-address-time-mobile {
+        display: block;
+    }
+}
  
 @media (max-width: 700px) {
     .event-container {
@@ -87,4 +101,8 @@
     height: auto;
     width: 400px;
     margin-left: 5rem;
+}
+
+.attendees {
+    display: flex;
 }
