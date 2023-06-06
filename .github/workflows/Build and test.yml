@@ -28,8 +28,6 @@ jobs:
       - name: Run tests
         run: |
           ./vendor/bin/sail artisan test
-        env:
-          APP_ENV: testing
         working-directory: backend
 
       - name: Upload artifacts
