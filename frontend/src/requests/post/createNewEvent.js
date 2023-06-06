@@ -6,11 +6,11 @@ const createNewEvent = async (
     description,
     date,
     time,
-    image = null
+    image = null,
+    address,
+    latitude,
+    longitude
 ) => {
-
-    const latitude = 0;
-    const longitude = 0;
 
     try {
         const response = await axios.post(
@@ -20,6 +20,7 @@ const createNewEvent = async (
                 description,
                 latitude,
                 longitude,
+                address,
                 date,
                 start_time: time,
                 image
