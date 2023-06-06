@@ -19,12 +19,6 @@ jobs:
           php artisan key:generate
         working-directory: backend
 
-      - name: Wait for server to be ready
-        run: |
-
-          RESPONSE=$(nc -zv localhost 80)
-          echo "$RESPONSE"
-        working-directory: backend
         
       - name: Start server in the background
         run: |
