@@ -9,6 +9,8 @@ import userAttendsEvent from "../../requests/post/userAttendsEvent";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import userNotAttendingEvent from "../../requests/delete/userNotAttendingEvent";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 function Event() {
   const { eventId } = useParams();
@@ -22,7 +24,6 @@ function Event() {
   useEffect(() => {
     getSingleEvent(eventId).then((event) => {
       setEvent(event);
-
       setCenter({ lat: event.latitude, lng: event.longitude });
     });
   }, []);
@@ -76,63 +77,49 @@ function Event() {
   return (
     <>
       <Box className="event-container">
-        <Box marginBottom={2} marginTop={3} className="event-title-container">
-          <Typography variant="h3">{event?.title}</Typography>
-          <p variant="paragraph" style={{ color: "grey" }}>
-            Number of guests: <b>{event?.number_of_guests}</b>
-          </p>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={event?.attending}
-                onChange={handleChangeAttending}
-              />
-            }
-            label={event?.attending ? "Going" : "Not going"}
-          />
+        <Box marginBottom={2} paddingBottom={3} paddingTop={3} className="event-title-container">
+          <Box className='wrapper' >
+            <Typography variant="h3">{event?.title}</Typography>
+            <Box sx={{ mt: 4, display: 'flex',  }}>
+                <img src={'/' + event.host_image} className="host-image" />
+                <Typography variant="paragraph" sx={{ ml: 4 }}>
+                    Hosted by: <br/>
+                    <b>{ event.host }</b>
+                </Typography>
+            </Box>
+          </Box>
         </Box>
 
-        <Box marginBottom={2} className="evet-image-container">
-          <img
-            src="https://media.istockphoto.com/id/868935172/photo/heres-to-tonight.jpg?s=612x612&w=0&k=20&c=v1ceJ9aZwI43rPaQeceEx5L6ODyWFVwqxqpadC2ljG0="
-            alt="Event"
-            className="event-image"
-          />
-        </Box>
+        <Box className='wrapper'>
+            <Box marginBottom={2} className="evet-image-container">
+            <img
+                src="https://media.istockphoto.com/id/868935172/photo/heres-to-tonight.jpg?s=612x612&w=0&k=20&c=v1ceJ9aZwI43rPaQeceEx5L6ODyWFVwqxqpadC2ljG0="
+                alt="Event"
+                className="event-heading-image"
+            />
+            <Box className='event-address-time'>
+                <Box sx={{ display: 'flex', alignItems: 'center', p: 3, backgroundColor: 'white', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }}>
+                    <AccessTimeIcon sx={{ fontSize: '32px' }} />
+                    <Typography sx={{ ml: 3 }}>{event?.date} at {event?.start_time}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', p: 3, backgroundColor: 'white', pt: 4, borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' }}>
+                    <LocationOnIcon sx={{ fontSize: '32px' }} />
+                    <Typography sx={{ ml: 3 }}>{event?.address}</Typography>
+                </Box>
+            </Box>
+            </Box>
 
-        <Box marginBottom={2} className="event-desc-container">
-          <Typography variant="body1">{event?.description}</Typography>
-        </Box>
-
-        <Box marginBottom={2}>
-          <Typography variant="body1">
-            <b>Host: </b> {event?.host}
-          </Typography>
-        </Box>
-
-        <Box marginBottom={2}>
-          <Typography variant="body1">
-            <b>Address: </b> {event?.address}
-          </Typography>
-        </Box>
-
-        <Box marginBottom={2}>
-          <Typography variant="body1">
-            <b>Event date: </b> {event?.date}
-          </Typography>
-        </Box>
-
-        <Box marginBottom={2}>
-          <Typography variant="body1">
-            <b>Event start time: </b> {event?.start_time}
-          </Typography>
-        </Box>
-
-        <Box marginBottom={2}>
-          <Typography variant="body1">
-            <b>Event location: </b>
-            {!isLoaded ? <>Loading...</> : <Map />}
-          </Typography>
+            <Box marginBottom={2} marginTop={4} className="event-desc-container">
+                <Typography variant="h4">Details</Typography>
+                <Typography variant="body1" sx={{ mt: 1, lineHeight: '30px' }}>{event?.description}</Typography>
+            </Box>
+            
+            <Box marginBottom={2}>
+                <Typography variant="body1">
+                    <b>Event location: </b>
+                    {!isLoaded ? <>Loading...</> : <Map />}
+                </Typography>
+            </Box>
         </Box>
       </Box>
     </>
