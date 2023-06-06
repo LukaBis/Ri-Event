@@ -27,9 +27,18 @@ jobs:
       - name: generate key
         run: php artisan key:generate
         working-directory: backend
+        
       - name: migrate
         run: |
           ./vendor/bin/sail artisan migrate
+        working-directory: backend
+        
+      - name: seed db
+        run:  ./vendor/bin/sail artisan db:seed
+        working-directory: backend
+        
+      - name: test
+        run: ./vendor/bin/sail artisan test
         working-directory: backend
         
       - name: Install frontend server
