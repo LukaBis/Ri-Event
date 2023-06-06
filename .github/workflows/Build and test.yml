@@ -21,7 +21,7 @@ jobs:
 
       - name: Wait for server to be ready
         run: |
-          while ! nc -z localhost 5432; do sleep 1; done
+
           RESPONSE=$(nc -zv localhost 80)
           echo "$RESPONSE"
         working-directory: backend
