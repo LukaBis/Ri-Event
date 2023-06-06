@@ -1,0 +1,44 @@
+name: Build project
+
+on: [push]
+
+jobs:
+  tests:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Run composer install
+        run: composer install
+        working-directory: backend
+
+      - name: Prepare Laravel Application
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+        working-directory: backend
+
+        
+      - name: Start server in the background
+        run: |
+          ./vendor/bin/sail up -d
+        working-directory: backend
+        
+      - name: Install frontend server
+        run: |
+          npm install --force
+        working-directory: frontend
+        
+      - name: start frontend server
+        run: |
+          npm start &
+        working-directory: frontend
+
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: Logs
+          path: backend/storage/logs
