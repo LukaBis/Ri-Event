@@ -32,7 +32,7 @@ jobs:
         
       - name: start frontend server
         run: |
-          npm run build
+          npm start &
         working-directory: frontend
 
 
