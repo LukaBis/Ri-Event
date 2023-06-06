@@ -17,6 +17,8 @@ const Home = () => {
     const [selectedMarker, setSelectedMarker] = useState(null);
 
     const navigate = useNavigate('');
+    const [search, setSearch] = useState(''); 
+
     // remove this later
     const randomImages = [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDmF-fhAYNe-fF9ecwqRWJ2DFm5_RRUM_aez1qo7ZHOeM42AcBwSjlDLmEmcZe_xkuEK0&usqp=CAU',
@@ -28,6 +30,15 @@ const Home = () => {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
     });
+  
+  const handleSearch = (e) => {
+        setSearch(e.target.value.toLowerCase());
+    }
+
+    // this function is used to filter events based on user search 
+    const filter = event => {
+        return event.title.toLowerCase().includes(search) || event.description.toLowerCase().includes(search);
+    }
 
     useEffect(() => {
         if (!Cookies.get('XSRF-TOKEN')) {
@@ -36,6 +47,7 @@ const Home = () => {
 
         // get authenticated user
         getAuthenticatedUser().then(user => setUser(user));
+
         getAllEvents().then(events => {
             setEvents(events);
             const eventMarkers = events.map(event => ({
@@ -61,7 +73,8 @@ const Home = () => {
     };
 
     const Map = () => {
-        return <GoogleMap
+        return (
+          <GoogleMap
             zoom={12}
             center={{ lat: 45.338231, lng: 14.420597 }}
             mapContainerClassName="map-container"
@@ -91,6 +104,7 @@ const Home = () => {
             )}
 
         </GoogleMap>
+        )
     }
 
     return (
@@ -117,13 +131,16 @@ const Home = () => {
                     borderRadius: 1,
                     flexWrap: 'wrap',
                 }}>
-                {events?.map((event, index) => (
-                    <EventItem
-                        id={event.id}
-                        title={event.title}
-                        description={event.description}
-                        image={randomImages[Math.floor(Math.random() * randomImages.length)]} />
-                ))}
+                {events?.filter(filter)
+                    ?.map((event, index) => (
+                        <EventItem
+                            id={event.id}
+                            key={event.id}
+                            title={event.title}
+                            description={event.description}
+                            image={randomImages[Math.floor(Math.random() * randomImages.length)]} />
+                        ))
+                }
             </Box>
         </div>
     );
