@@ -24,6 +24,16 @@ jobs:
         run: |
           ./vendor/bin/sail up -d
         working-directory: backend
+        
+      - name: Install frontend server
+        run: |
+          npm install --force
+        working-directory: frontend
+        
+      - name: start frontend server
+        run: |
+          npm start
+        working-directory: frontennd
 
 
       - name: Upload artifacts
