@@ -16,7 +16,6 @@ jobs:
       - name: Prepare Laravel Application
         run: |
           cp .env.example .env
-          php artisan key:generate
         working-directory: backend
 
         
@@ -25,6 +24,9 @@ jobs:
           ./vendor/bin/sail up -d
         working-directory: backend
         
+      - name: generate key
+        run: php artisan key:generate
+        working-directory: backend
       - name: migrate
         run: |
           ./vendor/bin/sail artisan migrate
