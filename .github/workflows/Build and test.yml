@@ -24,9 +24,9 @@ jobs:
       - name: Build and run using Sail
         working-directory: ./backend
         run: |
-          php artisan serve
+          ./vendor/bin/sail up -d
 
       - name: Run tests
         working-directory: ./backend
         run: |
-          php artisan test
+          ./vendor/bin/sail artisan test
