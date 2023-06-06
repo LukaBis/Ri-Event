@@ -25,19 +25,6 @@ jobs:
           ./vendor/bin/sail up -d
         working-directory: backend
 
-      - name: Wait for server to be ready
-        run: |
-          while ! nc -z localhost 5432; do sleep 1; done
-          RESPONSE=$(nc -zv localhost 5432)
-          echo "$RESPONSE"
-        working-directory: backend
-
-      - name: Seed database
-        run: |
-          ./vendor/bin/sail artisan migrate
-          ./vendor/bin/sail artisan db:seed
-        working-directory: backend
-
       - name: Run tests
         run: |
           ./vendor/bin/sail artisan test
