@@ -35,11 +35,6 @@ const Home = () => {
         setSearch(e.target.value.toLowerCase());
     }
 
-    // this function is used to filter events based on user search 
-    const filter = event => {
-        return event.title.toLowerCase().includes(search) || event.description.toLowerCase().includes(search);
-    }
-
     useEffect(() => {
         if (!Cookies.get('XSRF-TOKEN')) {
             navigate('/login');
@@ -107,6 +102,11 @@ const Home = () => {
         )
     }
 
+    // this function is used to filter events based on user search 
+    const filter = event => {
+        return event.title.toLowerCase().includes(search) || event.description.toLowerCase().includes(search);
+    }
+
     return (
         <div className='Home'>
             <Box className='heading' sx={{ m: 4 }}>
@@ -119,7 +119,7 @@ const Home = () => {
                 </Typography>
             </Box>
             <Box sx={{ backgroundColor: 'white' }} id="global-search">
-                <TextField fullWidth label="Search events" variant="outlined" />
+                <TextField fullWidth label="Search events" variant="outlined" onChange={handleSearch} value={search} />
             </Box>
             <Box
                 className='event-list'
