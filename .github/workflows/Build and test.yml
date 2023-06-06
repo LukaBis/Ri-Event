@@ -27,6 +27,7 @@ jobs:
 
       - name: Migrate
         run: ./vendor/bin/sail artisan migrate
+        working-directory: backend
       - name: Run tests
         run: |
           ./vendor/bin/sail artisan test
