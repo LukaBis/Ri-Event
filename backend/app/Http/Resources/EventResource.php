@@ -30,6 +30,7 @@ class EventResource extends JsonResource
             'organization' => $this->organization()->get()->first() ? $this->organization()->get()->first()->name : null,
             'image' => $this->image,
             'attending' => $this->attendingUsers()->get()->contains($request->user()),
+            'attendees' => $this->attendingUsers()->get(['image_path', 'name']),
             'number_of_guests' => $this->attendingUsers()->count(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
