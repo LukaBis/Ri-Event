@@ -25,6 +25,11 @@ jobs:
           ./vendor/bin/sail up -d
         working-directory: backend
         
+      - name: migrate
+        run: |
+          ./vendor/bin/sail artisan migrate
+        working-directory: backend
+        
       - name: Install frontend server
         run: |
           npm install --force
