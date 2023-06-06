@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import './home.css';
 import getAuthenticatedUser from '../../requests/get/getAuthenticatedUser';
@@ -57,7 +57,7 @@ const Home = () => {
     const getEventInfo = (marker) => {
         const event = events.find(event => event.latitude === marker.lat && event.longitude === marker.lng);
         console.log('event:', event)
-        return event ? {title: event.title, description: event.description} : '';
+        return event ? {id:event.id, title: event.title, description: event.description} : '';
     };
 
     const Map = () => {
@@ -84,7 +84,7 @@ const Home = () => {
                     onCloseClick={handleInfoWindowClose}
                 >
                     <div>
-                        <h3>{getEventInfo(selectedMarker).title}</h3>
+                        <h3><Link to={'/event/' + getEventInfo(selectedMarker).id}>{getEventInfo(selectedMarker).title}</Link></h3>
                         <p>{getEventInfo(selectedMarker).description}</p>
                     </div>
                 </InfoWindowF>
@@ -95,15 +95,14 @@ const Home = () => {
 
     return (
         <div className='Home'>
+            <Box className='heading' sx={{ m: 4 }}>
+                <Typography variant='h3'>Hello {user?.name}, Discover Local Events</Typography>
+                <Typography variant='paragraph' color={'GrayText'}>Stay up-to-date on the latest happenings and join the city's vibrant community</Typography>
+            </Box>
             <Box marginBottom={2} sx={{ m: 8 }}>
                 <Typography variant="body1">
                     {!isLoaded ? <>Loading...</> : <Map />}
                 </Typography>
-            </Box>
-
-            <Box className='heading' sx={{ m: 8 }}>
-                <Typography variant='h3'>Hello {user?.name}, Discover Local Events</Typography>
-                <Typography variant='paragraph' color={'GrayText'}>Stay up-to-date on the latest happenings and join the city's vibrant community</Typography>
             </Box>
             <Box sx={{ backgroundColor: 'white' }} id="global-search">
                 <TextField fullWidth label="Search events" variant="outlined" />
