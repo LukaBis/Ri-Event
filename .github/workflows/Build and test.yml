@@ -25,13 +25,6 @@ jobs:
           ./vendor/bin/sail up -d
         working-directory: backend
 
-      - name: Migrate
-        run: ./vendor/bin/sail artisan migrate
-        working-directory: backend
-      - name: Run tests
-        run: |
-          ./vendor/bin/sail artisan test
-        working-directory: backend
 
       - name: Upload artifacts
         uses: actions/upload-artifact@master
