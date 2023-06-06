@@ -6,137 +6,151 @@ import getSingleEvent from "../../requests/get/getSingleEvent";
 import "./event.css";
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 import userAttendsEvent from "../../requests/post/userAttendsEvent";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
 import userNotAttendingEvent from "../../requests/delete/userNotAttendingEvent";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AttendeeCard from "./AttendeeCard";
+import Button from '@mui/material/Button';
 
 function Event() {
-  const { eventId } = useParams();
-  const [event, setEvent] = useState({});
-  const [center, setCenter] = useState(null);
+    const { eventId } = useParams();
+    const [event, setEvent] = useState({});
+    const [center, setCenter] = useState(null);
 
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
-  });
-
-  useEffect(() => {
-    getSingleEvent(eventId).then((event) => {
-      setEvent(event);
-
-      setCenter({ lat: event.latitude, lng: event.longitude });
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
     });
-  }, []);
 
-  function Map() {
-    return (
-      <GoogleMap
-        zoom={13}
-        center={center}
-        mapContainerClassName="map-container"
-      >
-        <MarkerF position={center} />
-      </GoogleMap>
-    );
-  }
-
-  const attendEvent = () => {
-    userAttendsEvent(eventId).then((res) => {
-      if (res == "OK") {
-        console.log("success");
-        setEvent({
-          ...event,
-          attending: true,
+    useEffect(() => {
+        getSingleEvent(eventId).then((event) => {
+            setEvent(event);
+            setCenter({ lat: event.latitude, lng: event.longitude });
         });
-      }
-    });
-  };
+    }, []);
 
-  const notAttendingEvent = () => {
-    userNotAttendingEvent(eventId).then((res) => {
-      if (res == "OK") {
-        console.log("success");
-        setEvent({
-          ...event,
-          attending: false,
-        });
-      }
-    });
-  };
-
-  const handleChangeAttending = () => {
-    if (event.attending === false) {
-      attendEvent();
+    function Map() {
+        return (
+            <GoogleMap
+                zoom={13}
+                center={center}
+                mapContainerClassName="map-container"
+            >
+                <MarkerF position={center} />
+            </GoogleMap>
+        );
     }
 
-    if (event.attending === true) {
-      notAttendingEvent();
-    }
-  };
-
-  return (
-    <>
-      <Box className="event-container">
-        <Box marginBottom={2} marginTop={3} className="event-title-container">
-          <Typography variant="h3">{event?.title}</Typography>
-          <p variant="paragraph" style={{ color: "grey" }}>
-            Number of guests: <b>{event?.number_of_guests}</b>
-          </p>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={event?.attending}
-                onChange={handleChangeAttending}
-              />
+    const attendEvent = () => {
+        userAttendsEvent(eventId).then((res) => {
+            if (res == "OK") {
+                console.log("success");
+                setEvent({
+                    ...event,
+                    attending: true,
+                });
             }
-            label={event?.attending ? "Going" : "Not going"}
-          />
-        </Box>
+        });
+    };
 
-        <Box marginBottom={2} className="evet-image-container">
-          <img
-            src="https://media.istockphoto.com/id/868935172/photo/heres-to-tonight.jpg?s=612x612&w=0&k=20&c=v1ceJ9aZwI43rPaQeceEx5L6ODyWFVwqxqpadC2ljG0="
-            alt="Event"
-            className="event-image"
-          />
-        </Box>
+    const notAttendingEvent = () => {
+        userNotAttendingEvent(eventId).then((res) => {
+            if (res == "OK") {
+                console.log("success");
+                setEvent({
+                    ...event,
+                    attending: false,
+                });
+            }
+        });
+    };
 
-        <Box marginBottom={2} className="event-desc-container">
-          <Typography variant="body1">{event?.description}</Typography>
-        </Box>
+    const handleChangeAttending = () => {
+        if (event.attending === false) {
+            attendEvent();
+        }
 
-        <Box marginBottom={2}>
-          <Typography variant="body1">
-            <b>Host: </b> {event?.host}
-          </Typography>
-        </Box>
+        if (event.attending === true) {
+            notAttendingEvent();
+        }
+    };
 
-        <Box marginBottom={2}>
-          <Typography variant="body1">
-            <b>Address: </b> {event?.address}
-          </Typography>
-        </Box>
+    return (
+        <>
+            <Box className="event-container">
+                <Box marginBottom={2} paddingBottom={3} paddingTop={3} className="event-title-container">
+                    <Box className='wrapper'>
+                        <Typography variant="h3">{event?.title}</Typography>
+                        <Box sx={{ mt: 4, display: 'flex', }}>
+                            <img src={'/' + event.host_image} className="host-image" />
+                            <Typography variant="paragraph" sx={{ ml: 4 }}>
+                                Hosted by: <br />
+                                <b>{event.host}</b>
+                            </Typography>
+                        </Box>
+                    </Box>
+                </Box>
 
-        <Box marginBottom={2}>
-          <Typography variant="body1">
-            <b>Event date: </b> {event?.date}
-          </Typography>
-        </Box>
+                <Box className='wrapper'>
+                    <Box className="event-address-time-mobile">
+                        <Box sx={{ display: 'flex', alignItems: 'center', p: 3, backgroundColor: 'white', maxWidth: '800px' }}>
+                            <AccessTimeIcon sx={{ fontSize: '32px' }} />
+                            <Typography sx={{ ml: 3 }}>{event?.date} at {event?.start_time}</Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', alignItems: 'center', p: 3, backgroundColor: 'white', pt: 4, mb: 0, maxWidth: '800px' }}>
+                            <LocationOnIcon sx={{ fontSize: '32px' }} />
+                            <Typography sx={{ ml: 3 }}>{event?.address}</Typography>
+                        </Box>
+                        <Button onClick={handleChangeAttending} variant={event.attending ? "outlined" : "contained"} sx={{ width: '100%', maxWidth: '800px', mb: 4 }}>
+                            {event.attending ? "Not going" : "Attend"}
+                        </Button>
+                    </Box>
+                    <Box marginBottom={2} className="evet-image-container">
+                        <img
+                            src="https://media.istockphoto.com/id/868935172/photo/heres-to-tonight.jpg?s=612x612&w=0&k=20&c=v1ceJ9aZwI43rPaQeceEx5L6ODyWFVwqxqpadC2ljG0="
+                            alt="Event"
+                            className="event-heading-image"
+                        />
+                        <Box className='event-address-time'>
+                            <Box sx={{ display: 'flex', alignItems: 'center', p: 3, backgroundColor: 'white', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }}>
+                                <AccessTimeIcon sx={{ fontSize: '32px' }} />
+                                <Typography sx={{ ml: 3 }}>{event?.date} at {event?.start_time}</Typography>
+                            </Box>
+                            <Box sx={{ display: 'flex', alignItems: 'center', p: 3, backgroundColor: 'white', pt: 4, borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' }}>
+                                <LocationOnIcon sx={{ fontSize: '32px' }} />
+                                <Typography sx={{ ml: 3 }}>{event?.address}</Typography>
+                            </Box>
+                            <Button onClick={handleChangeAttending} variant={event.attending ? "outlined" : "contained"} sx={{ width: '100%', mb: 4 }}>
+                                {event.attending ? "Not going" : "Attend"}
+                            </Button>
+                        </Box>
+                    </Box>
 
-        <Box marginBottom={2}>
-          <Typography variant="body1">
-            <b>Event start time: </b> {event?.start_time}
-          </Typography>
-        </Box>
+                    <Box marginBottom={2} marginTop={4} className="event-desc-container">
+                        <Typography variant="h4">Details</Typography>
+                        <Typography variant="body1" sx={{ mt: 1, lineHeight: '30px' }}>{event?.description}</Typography>
+                    </Box>
 
-        <Box marginBottom={2}>
-          <Typography variant="body1">
-            <b>Event location: </b>
-            {!isLoaded ? <>Loading...</> : <Map />}
-          </Typography>
-        </Box>
-      </Box>
-    </>
-  );
+                    <Box marginBottom={2} marginTop={4} className="event-desc-container">
+                        <Typography variant="h4" sx={{ mb: 3 }}>Attendees ({event?.number_of_guests})</Typography>
+                        <Box className='attendees'>
+                            {
+                                event?.attendees?.map(user => (
+                                    <AttendeeCard name={user.name} image={'http://localhost/' + user.image_path} />
+                                ))
+                            }
+                        </Box>
+                    </Box>
+
+                    <Box marginBottom={2} sx={{ maxWidth: '800px' }}>
+                        <Typography variant="body1">
+                            <b>Event location: </b>
+                            {!isLoaded ? <>Loading...</> : <Map />}
+                        </Typography>
+                    </Box>
+                </Box>
+            </Box>
+        </>
+    );
 }
 
 export default Event;
