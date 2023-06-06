@@ -33,7 +33,7 @@ jobs:
       - name: start frontend server
         run: |
           npm start
-        working-directory: frontennd
+        working-directory: frontend
 
 
       - name: Upload artifacts
