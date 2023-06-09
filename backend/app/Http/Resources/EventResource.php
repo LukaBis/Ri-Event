@@ -24,7 +24,7 @@ class EventResource extends JsonResource
             'longitude' => $this->longitude,
             'address' => $this->address,
             'start_time' => $this->start_time,
-            'date' => Carbon::createFromFormat('Y-m-d', $this->date)->format('l, F j, Y \a\t g:i A'),
+            'date' => Carbon::createFromFormat('Y-m-d', $this->date)->format('l, F j, Y'),
             'host' => $this->host()->get()->first()->name,
             'host_image' => $this->host()->get()->first()->image_path,
             'organization' => $this->organization()->get()->first() ? $this->organization()->get()->first()->name : null,
