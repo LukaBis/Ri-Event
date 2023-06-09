@@ -8,6 +8,7 @@ import './style.css';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import updateEvent from '../../requests/put/updateEvent'
+import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api';
 
 function EventEditForm() {
   const location = useLocation();
@@ -19,10 +20,20 @@ function EventEditForm() {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [image, setImage] = useState('');
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [address, setAddress] = useState("");
   const [disabled, setDisabled] = useState(false);
+  const [marker, setMarker] = useState({});
 
   const [successAlert, setSuccessAlert] = useState(false);
   const [errorAlert, setErrorAlert] = useState(null);
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+  });
+
+  const apiKey = process.env.REACT_APP_MAPS_API_KEY;
 
   useEffect(() => {
     fetch(`/api/events/${id}`)
@@ -35,6 +46,10 @@ function EventEditForm() {
         setTime(data.data.start_time);
         //setImage(data.data)
         setImage(data.data.image)
+        setAddress(data.data.address)
+        setLatitude(data.data.latitude)
+        setLongitude(data.data.longitude)
+        setMarker({lat: data.data.latitude, lng: data.data.longitude})
 
       })
       .catch(error => {
@@ -48,7 +63,7 @@ function EventEditForm() {
 
     // Example code
     console.log(typeof (image));
-    updateEvent(id, title, description, date, time, image)
+    updateEvent(id, title, description, date, time, image, address, latitude, longitude)
       .then(res => {
         if (res === 'OK') {
           setSuccessAlert('Event updated successfully!');
@@ -72,6 +87,35 @@ function EventEditForm() {
     }
   };
 
+  const handleMapClick = async (event) => {
+    const newMarker = {
+      lat: Number(event.latLng.lat()),
+      lng: Number(event.latLng.lng()),
+    };
+
+    setLatitude(event.latLng.lat().toFixed(6));
+    setLongitude(event.latLng.lng().toFixed(6));
+    setMarker(newMarker);
+
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${event.latLng.lat().toFixed(6)},${event.latLng.lng().toFixed(6)}&key=${apiKey}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setAddress(data.results[0].formatted_address)
+      })
+      .catch((error) => console.log(error));
+
+  };
+
+  const Map = () => {
+    return <GoogleMap
+      zoom={12}
+      center={marker ? marker : { lat: 45.338231, lng: 14.420597 }}
+      mapContainerClassName='map-container'
+      onClick={handleMapClick}
+    >
+      {marker && <MarkerF position={marker} />}
+    </GoogleMap>
+  }
 
   return (
     <>
@@ -149,6 +193,14 @@ function EventEditForm() {
         />
 
 
+        <br />
+
+        <Box marginBottom={2}>
+          <Typography variant="body1">
+            {!isLoaded ? <>Loading...</> : <Map />}
+          </Typography>
+          {address}
+        </Box>
         <br />
         <Button
           variant="contained"
