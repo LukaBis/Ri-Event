@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Input, Typography } from '@mui/material';
+import { Box, Input, InputLabel, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
@@ -107,7 +107,9 @@ function EventEditForm() {
   };
 
   const Map = () => {
-    return <GoogleMap
+    return <>
+    <InputLabel shrink sx={{mt: 3}}>Location</InputLabel>
+    <GoogleMap
       zoom={12}
       center={marker ? marker : { lat: 45.338231, lng: 14.420597 }}
       mapContainerClassName='map-container'
@@ -115,6 +117,7 @@ function EventEditForm() {
     >
       {marker && <MarkerF position={marker} />}
     </GoogleMap>
+    </>
   }
 
   return (
@@ -179,6 +182,7 @@ function EventEditForm() {
           </div>
         )}
 
+        <InputLabel shrink sx={{mt: 3}}>Event image</InputLabel>
         <Input
           disabled={disabled}
           src={image}
@@ -186,7 +190,6 @@ function EventEditForm() {
           id="standard-basic"
           label="Image"
           className="event-form-input"
-          sx={{ mt: 3 }}
           variant="standard"
           inputProps={{ accept: 'image/*' }} // Optional: Limit accepted file types to images
           onChange={handleImageChange}
