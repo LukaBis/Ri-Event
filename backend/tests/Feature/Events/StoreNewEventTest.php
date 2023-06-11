@@ -31,7 +31,7 @@ class StoreNewEventTest extends TestCase
         $eventData["longitude"] = 54;
         $eventData["address"] = "My New Address";
         $eventData["start_time"] = '10:30';
-        $eventData["date"] = '2023-06-10';
+        $eventData["date"] = '2025-06-10';
 
         $response = $this->post('/api/events', $eventData, [
             'X-XSRF-TOKEN' => $csrfToken,
@@ -65,7 +65,7 @@ class StoreNewEventTest extends TestCase
         $eventData["address"] = "My New Address";
         $eventData["organization_id"] = $organization->id;
         $eventData["start_time"] = "22:00";
-        $eventData["date"] = "2023-06-10";
+        $eventData["date"] = "2025-06-10";
 
         $response = $this->post('/api/events', $eventData, [
             'X-XSRF-TOKEN' => $csrfToken,
@@ -105,7 +105,7 @@ class StoreNewEventTest extends TestCase
         $eventData["address"] = "My New Address";
         $eventData["organization_id"] = $someoneElsesOrganization->id;
         $eventData["start_time"] = "22:00";
-        $eventData["date"] = "2023-06-10";
+        $eventData["date"] = "2025-06-10";
 
         $response = $this->post('/api/events', $eventData, [
             'X-XSRF-TOKEN' => $csrfToken,
@@ -188,7 +188,7 @@ class StoreNewEventTest extends TestCase
         $eventData["longitude"] = 54;
         $eventData["address"] = "My New Address";
         $eventData["start_time"] = '10:30';
-        $eventData["date"] = '2023-06-10';
+        $eventData["date"] = '2025-06-10';
 
         $response = $this->post('/api/events', $eventData, [
             'Referer' => 'localhost:3000',
