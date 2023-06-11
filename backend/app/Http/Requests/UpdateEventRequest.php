@@ -21,7 +21,7 @@ class UpdateEventRequest extends FormRequest
             'address' => ['min:3'],
             'start_time' => ['date_format:H:i'],
             'date' => ['date', 'after_or_equal:today'],
-            'image' => ['image', 'dimensions:ratio=1/1', 'mimes:jpeg,jpg,png']
+            'image' => ['image', 'mimes:jpeg,jpg,png']
         ];
     }
 }
