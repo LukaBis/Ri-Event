@@ -66,6 +66,25 @@ function EventEditForm() {
 
     // Example code
     console.log(typeof (image));
+    //if image is type of string(event image isnt being updated) then send image as null, dont touch
+    if(typeof(image) === 'string' ){
+      updateEvent(id, title, description, date, time, null, address, latitude, longitude)
+      .then(res => {
+        if (res === 'OK') {
+          setSuccessAlert('Event updated successfully!');
+          setErrorAlert(null);
+        }
+
+
+        setDisabled(false);
+      })
+      .catch(err => {
+        setSuccessAlert(false);
+        setErrorAlert(err.message);
+        setDisabled(false);
+      });
+    }
+    else{
     updateEvent(id, title, description, date, time, image, address, latitude, longitude)
       .then(res => {
         if (res === 'OK') {
@@ -81,6 +100,7 @@ function EventEditForm() {
         setErrorAlert(err.message);
         setDisabled(false);
       });
+    }
   };
 
   const handleImageChange = (e) => {
@@ -200,7 +220,7 @@ function EventEditForm() {
           label="Image"
           className="event-form-input"
           variant="standard"
-          inputProps={{ accept: 'image/*' }} // Optional: Limit accepted file types to images
+         // inputProps={{ accept: 'image/*' }} // Optional: Limit accepted file types to images
           onChange={handleImageChange}
         />
 
