@@ -29,9 +29,25 @@ class EventFactory extends Factory
             'address' => fake()->address,
             'start_time' => fake()->time('H:i', false),
             'date' => fake()->date,
+            'image' => $this->getRandomEventImage(),
             'organization_id' => $randomOrganization ? $randomOrganization->id : null,
             'host_id' => $randomOrganization ? $randomOrganization->user()->get()->first()->id : User::inRandomOrder()->first()->id
         ];
+    }
+
+    private function getRandomEventImage()
+    {
+        // images inside the sotrage/app/public/event_images used for seeding
+        $images = [
+            'event_images/image1.jpeg',
+            'event_images/image2.jpg',
+            'event_images/image3.jpg',
+            'event_images/image4.jpeg',
+        ];
+
+        $randomImage = $images[array_rand($images)];
+
+        return $randomImage;
     }
 
     private function getRandomOrganization(): Organization | null

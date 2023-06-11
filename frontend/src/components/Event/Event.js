@@ -106,7 +106,7 @@ function Event() {
                     </Box>
                     <Box marginBottom={2} className="evet-image-container">
                         <img
-                            src="https://media.istockphoto.com/id/868935172/photo/heres-to-tonight.jpg?s=612x612&w=0&k=20&c=v1ceJ9aZwI43rPaQeceEx5L6ODyWFVwqxqpadC2ljG0="
+                            src={`http://localhost/${event?.image}`}
                             alt="Event"
                             className="event-heading-image"
                         />
