@@ -9,6 +9,8 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import updateEvent from '../../requests/put/updateEvent'
 import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api';
+import dayjs, { Dayjs } from 'dayjs';
+
 
 function EventEditForm() {
   const location = useLocation();
@@ -41,21 +43,22 @@ function EventEditForm() {
       .then(data => {
         setTitle(data.data.title);
         setDescription(data.data.description);
+        console.log(data.data.date)
         setDate(data.data.date);
-        console.log(data.data)
+        console.log(data.data.date);
         setTime(data.data.start_time);
-        //setImage(data.data)
-        setImage(data.data.image)
-        setAddress(data.data.address)
-        setLatitude(data.data.latitude)
-        setLongitude(data.data.longitude)
-        setMarker({lat: data.data.latitude, lng: data.data.longitude})
-
+        setImage(data.data.image);
+        setAddress(data.data.address);
+        setLatitude(data.data.latitude);
+        setLongitude(data.data.longitude);
+        setMarker({ lat: data.data.latitude, lng: data.data.longitude });
+        console.log(date);
       })
       .catch(error => {
         console.error('Error fetching event data:', error);
       });
   }, [id]);
+  
 
   const handleSubmit = () => {
     setDisabled(true);
@@ -149,15 +152,21 @@ function EventEditForm() {
         />
         <br />
         <TextField
-          disabled={disabled}
-          id="standard-basic"
-          label="Date"
-          className="event-form-input"
-          sx={{ mt: 3 }}
-          variant="standard"
-          value={date}
-          onChange={e => setDate(e.target.value)}
-        />
+  disabled={disabled}
+  id="standard-basic"
+  type='date'
+  label="Date"
+  className="event-form-input"
+  sx={{ mt: 3 }}
+  variant="standard"
+  value={date}
+  onChange={e => setDate(e.target.value)}
+  InputLabelProps={{
+    shrink: true,
+  }}
+/>
+
+
         <br />
         <TextField
           disabled={disabled}
