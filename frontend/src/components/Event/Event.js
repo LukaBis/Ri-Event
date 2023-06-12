@@ -11,6 +11,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AttendeeCard from "./AttendeeCard";
 import Button from '@mui/material/Button';
+import dayjs from "dayjs";
 
 function Event() {
     const { eventId } = useParams();
@@ -24,6 +25,7 @@ function Event() {
     useEffect(() => {
         getSingleEvent(eventId).then((event) => {
             setEvent(event);
+            event.date = dayjs(event.date).format('dddd, MMMM D, YYYY')
             setCenter({ lat: event.latitude, lng: event.longitude });
         });
     }, []);
