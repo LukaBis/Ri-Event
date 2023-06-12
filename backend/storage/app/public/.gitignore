@@ -1,3 +1,9 @@
 *
 !.gitignore
 !profile_images/
+!event_images/
+event_images/*
+!event_images/image1.jpeg
+!event_images/image2.jpg
+!event_images/image3.jpg
+!event_images/image4.jpeg

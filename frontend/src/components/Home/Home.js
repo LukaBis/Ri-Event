@@ -19,14 +19,6 @@ const Home = () => {
     const navigate = useNavigate('');
     const [search, setSearch] = useState(''); 
 
-    // remove this later
-    const randomImages = [
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDmF-fhAYNe-fF9ecwqRWJ2DFm5_RRUM_aez1qo7ZHOeM42AcBwSjlDLmEmcZe_xkuEK0&usqp=CAU',
-        'https://www.thesu.org.uk/pageassets/events/events.jpg',
-        'https://billetto.co.uk/blog/wp-content/uploads/2019/11/hanny-naibaho-aWXVxy8BSzc-unsplash-1024x683.jpg',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrH6UmvKbkjxQhHqut5ZHvdl7C4gf1ILW4VQ&usqp=CAU',
-    ];
-
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
     });
@@ -138,7 +130,7 @@ const Home = () => {
                             key={event.id}
                             title={event.title}
                             description={event.description}
-                            image={randomImages[Math.floor(Math.random() * randomImages.length)]} />
+                            image={`http://localhost/${event.image}`} />
                         ))
                 }
             </Box>
